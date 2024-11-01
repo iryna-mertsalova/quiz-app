@@ -14,18 +14,18 @@ const compat = new FlatCompat({
 });
 
 export default [{
-  ignores: [ '/dist//*', '/vendor//*' ],
-}, ...compat.extends('plugin:json/recommended-legacy'), {
+  ignores: [ '/dist//*', '/vendor//*', '.angular/', '.vscode/', 'dist/', '.husky/', '**/*.config.js', 'src/styles/**/*.scss' ],
+}, 
+...compat.extends('plugin:json/recommended-legacy'), 
+{
   plugins: {
     json,
   },
-
   languageOptions: {
     parser: tsParser,
     ecmaVersion: 5,
     sourceType: 'module',
   },
-
   rules: {
     'array-element-newline': [ 2, 'consistent' ],
     'array-bracket-newline': [ 2, 'consistent' ],
@@ -234,9 +234,9 @@ export default [{
     'wrap-iife': [ 2, 'inside' ],
     'yoda': 2,
   },
-}, {
-  files: ['**/*.ts'],
-
+}, 
+{
+  files: [ '**/*.ts', 'src/styles/**/*.scss' ],
   rules: {
     'no-undef': 'off',
   },
