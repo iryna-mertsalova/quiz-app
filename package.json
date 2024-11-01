@@ -8,10 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prepare": "husky",
-    "lint": "eslint . && stylelint src/styles/**/*.scss",
+    "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint .",
     "eslint-fix": "npx eslint --fix",
-    "stylelint": "stylelint src/styles/**/*.scss"
+    "stylelint": "stylelint src/**/*.{css,scss}"
   },
   "private": true,
   "dependencies": {
