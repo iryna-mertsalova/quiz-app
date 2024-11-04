@@ -40,12 +40,6 @@ module.exports = {
         paragraphX2: '20px',
         label: '18px'
       },
-      borderRadius: {
-        DEFAULT: '4px',
-      },
-      borderWidth: {
-        DEFAULT: '2px',
-      },
       width: {
         '30px': '30px',
       },
