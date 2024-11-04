@@ -14,9 +14,6 @@ module.exports = {
         muted: '#7C9CBF',
         shade: '#DBE2EA',
       },
-      fontFamily: {
-        'ibm-plex-sans': ["IBMPlexSans"]
-      },
 
     },
   },
