@@ -15,40 +15,18 @@ module.exports = {
         shade: '#DBE2EA',
       },
       fontFamily: {
-        'ibm-plex-sans-regular': ["IBMPlexSans-Regular"],
-        'ibm-plex-sans-semi-bold': ["IBMPlexSans-SemiBold"]
+        'ibm-plex-sans': ["IBMPlexSans"]
       },
-      fontSize: {
-        x1: '72px',
-        x2: '64px',
-        x3: '56px',
-        x4: '34px',
-        x5: '28px',
-        x6: '24px',
-        paragraphX1: '16px',
-        paragraphX2: '14px',
-        label: '12px'
-      },
-      lineHeight: {
-        x1: '86px',
-        x2: '76px',
-        x3: '68px',
-        x4: '44px',
-        x5: '36px',
-        x6: '28px',
-        paragraphX1: '22px',
-        paragraphX2: '20px',
-        label: '18px'
-      },
-      width: {
-        '30px': '30px',
-      },
-      height: {
-        '30px': '30px',
-      }
+
     },
   },
   plugins: [],
 
 };
 
+// fontSize: {
+//         x2: ['64px', '76px'],
+//         x3: ['56px', '68px'],
+//         x4: ['34px', '44px'],
+//         x5: ['28px', '36px'],
+//       }

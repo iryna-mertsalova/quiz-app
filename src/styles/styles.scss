@@ -4,15 +4,17 @@
 @import 'tailwindcss/utilities';
 
 @font-face {
-  font-family: IBMPlexSans-Regular;
-  src:
-    url('../assets/fonts/IBMPlexSans-Regular.ttf') format('truetype'),
-    url('../assets/fonts/IBMPlexSans-Regular.ttf') format('truetype');
+  font-display: swap;
+  font-family: IBMPlexSans;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/IBMPlexSans.woff') format('woff');
 }
 
 @font-face {
-  font-family: IBMPlexSans-SemiBold;
-  src:
-    url('../assets/fonts/IBMPlexSans-SemiBold.ttf') format('truetype'),
-    url('../assets/fonts/IBMPlexSans-SemiBold.ttf') format('truetype');
+  font-display: swap;
+  font-family: IBMPlexSans;
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/IBMPlexSans-SemiBold.woff') format('woff');
 }
