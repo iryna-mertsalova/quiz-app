@@ -23,10 +23,3 @@ module.exports = {
   plugins: [],
 
 };
-
-// fontSize: {
-//         x2: ['64px', '76px'],
-//         x3: ['56px', '68px'],
-//         x4: ['34px', '44px'],
-//         x5: ['28px', '36px'],
-//       }
