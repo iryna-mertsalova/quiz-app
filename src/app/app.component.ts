@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ButtonComponent } from './ui-kit/button/button.component';
 import { UIKitModule } from './ui-kit/ui-kit.module';
 
 @Component({

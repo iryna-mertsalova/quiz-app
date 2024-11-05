@@ -3,12 +3,12 @@
     <h1 class="font-semibold text-7xl text-muted">Hello, {{ title }}</h1>
     <p class="text-lg text-secondary">Congratulations! Your app is running. 🎉</p>
   </div>
-  
-  <div class="flex flex-wrap"> 
-    <app-button type="ghost" size="sm" state="disabled" [prev]="true">Next question</app-button>
-    <app-button type="accent" size="sm" state="hover" [next]="true">Next question</app-button>
-    <app-button type="ghost" size="sm" state="hover">Back on main page</app-button>
-    <app-button type="accent" size="md" state="enabled">Back on main page</app-button>
+
+  <div class="flex flex-wrap bg-slate-500 p-5">
+    <app-button type="accent" size="sm" iconState="prev" >Prev question</app-button>
+    <app-button type="accent" size="sm" iconState="next" >Next question</app-button>
+    <app-button type="ghost" size="sm">Back on main page</app-button>
+    <app-button [disabled]="true" iconState="next" type="accent" size="md">Back on main page</app-button>
   </div>
 
 </main>

@@ -1,15 +1,8 @@
-<button class="m-1 px-5 rounded border-2 flex items-center" [ngClass]="[
-  size === 'sm' ? prev || next ? 'py-[2.5px]' : 'py-1.5' : 'py-3',
-  prev ? 'pl-2' : next ? 'pr-2' : '',
-  type === 'accent' && (state === 'enabled' || state === 'hover') ? 'bg-accent' : state === 'disabled' ? 'bg-secondary' : 'bg-transparent',
-  type === 'ghost' && (state === 'enabled' || state === 'hover') ? 'border-accent' : state == 'disabled' ? 'border-secondary': 'border-transparent',
-  (type == 'ghost' && state == 'disabled') ?  'bg-transparent' :'',
-  state === 'enabled' ? 'text-bright' : state === 'disabled' ? 'text-shade' : state === 'hover' ? 'text-error' : ''
-]">
-  <img *ngIf='prev' [src]="'../../..//assets/images/chevron-icons/chevron-left-' + state + '.png'" alt="chevron icon" />
-  <app-typography fontWeight='font-[600]' fontSize="text-[14px]" lineHeight="leading-[18px]">
+<button class="m-1 px-5 rounded border-2 flex items-center text-bright enabled:hover:text-error disabled:text-shade"
+  [disabled]="disabled" [ngClass]="[classes]">
+  <app-typography name="P1">
     <ng-content></ng-content>
   </app-typography>
-  <img *ngIf='next' [src]="'../../..//assets/images/chevron-icons/chevron-right-' + state + '.png'"
-    alt="chevron icon" />
+  <svg-icon [src]='imageSrc' class="px-1" *ngIf="iconState"
+    [svgStyle]="iconStyles"></svg-icon>
 </button>
