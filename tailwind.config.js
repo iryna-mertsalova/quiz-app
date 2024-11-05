@@ -14,7 +14,6 @@ module.exports = {
         muted: '#7C9CBF',
         shade: '#DBE2EA',
       },
-
     },
   },
   plugins: [],

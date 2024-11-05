@@ -2,8 +2,15 @@
   <div class="content border-r border border-accent m-2 p-2">
     <h1 class="font-semibold text-7xl text-muted">Hello, {{ title }}</h1>
     <p class="text-lg text-secondary">Congratulations! Your app is running. 🎉</p>
-
   </div>
+  
+  <div class="flex flex-wrap"> 
+    <app-button type="ghost" size="sm" state="disabled" [prev]="true">Next question</app-button>
+    <app-button type="accent" size="sm" state="hover" [next]="true">Next question</app-button>
+    <app-button type="ghost" size="sm" state="hover">Back on main page</app-button>
+    <app-button type="accent" size="md" state="enabled">Back on main page</app-button>
+  </div>
+
 </main>
 
 <router-outlet />
