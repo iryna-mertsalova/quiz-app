@@ -5,16 +5,17 @@ import { TextTypes } from '../../text-types';
   selector: 'app-ui-button',
   templateUrl: './button.component.html',
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnInit {
   @Input() type: 'accent' | 'ghost' = 'accent';
   @Input() size: 'sm' | 'md' = 'sm';
   @Input() iconState: 'next' | 'prev' | 'none' = 'none';
   @Input() disabled: boolean = false;
   @Input() textType: TextTypes = 'P1';
 
-  imageSrc: string = 'assets/images/chevron.svg';
+  imageSrc: string = 'chevron.svg';
   iconRotate: string = '';
-  
+  iconStyles: { [klass: string]: string | number } = {};
+
   get classes(): string {
     return [ this.iconStateStyle, this.sizeStyle, this.typeStyle ].join(' ');
   }
@@ -50,12 +51,14 @@ export class ButtonComponent {
     }
   }
 
-  get iconRotateStyle(): { [klass: string]: string } {
-    return { transform: `rotate(${this.iconRotate})` };
-  }
-
-  get iconStyles(): { [klass: string]: string | number } {
-    return {
+  ngOnInit(): void {
+    if (this.iconState === 'next') {
+      this.iconRotate = '180deg';
+    }
+    if (this.iconState === 'prev') {
+      this.iconRotate = '0deg';
+    }
+    this.iconStyles = {
       'width.px': 14,
       'height.px': 14,
       'transform': `rotate(${this.iconRotate})`,
