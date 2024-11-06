@@ -1,9 +1,10 @@
+<ng-template #content><ng-content></ng-content></ng-template>
 <ng-container [ngSwitch]="type">
-  <h1 *ngSwitchCase="'H1'" [ngClass]="classes">{{text}}</h1>
-  <h2 *ngSwitchCase="'H2'" [ngClass]="classes">{{text}}</h2>
-  <h3 *ngSwitchCase="'H3'" [ngClass]="classes">{{text}}</h3>
-  <h4 *ngSwitchCase="'H4'" [ngClass]="classes">{{text}}</h4>
-  <h5 *ngSwitchCase="'H5'" [ngClass]="classes">{{text}}</h5>
-  <h6 *ngSwitchCase="'H6'" [ngClass]="classes">{{text}}</h6>
-  <p *ngSwitchDefault [ngClass]="classes"><ng-content></ng-content></p>
+  <h1 *ngSwitchCase="'H1'" [ngClass]="classes"><ng-container [ngTemplateOutlet]="content"></ng-container></h1>
+  <h2 *ngSwitchCase="'H2'" [ngClass]="classes"><ng-container [ngTemplateOutlet]="content"></ng-container></h2>
+  <h3 *ngSwitchCase="'H3'" [ngClass]="classes"><ng-container [ngTemplateOutlet]="content"></ng-container></h3>
+  <h4 *ngSwitchCase="'H4'" [ngClass]="classes"><ng-container [ngTemplateOutlet]="content"></ng-container></h4>
+  <h5 *ngSwitchCase="'H5'" [ngClass]="classes"><ng-container [ngTemplateOutlet]="content"></ng-container></h5>
+  <h6 *ngSwitchCase="'H6'" [ngClass]="classes"><ng-container [ngTemplateOutlet]="content"></ng-container></h6>
+  <p *ngSwitchDefault [ngClass]="classes"><ng-container [ngTemplateOutlet]="content"></ng-container></p>
 </ng-container>

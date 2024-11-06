@@ -1,22 +1,30 @@
 import { Component, Input } from '@angular/core';
-import { TextName, textTypes } from '../../text-types';
+import { TextTypes, textTypesClasses } from '../../text-types';
 
 @Component({
   selector: 'app-ui-typography',
   templateUrl: './typography.component.html',
 })
 export class TypographyComponent {
-  @Input() type: TextName = 'P1';
+  @Input() type: TextTypes = 'P1';
   @Input() highlightText: 'none' | 'framed' | 'ellipse' = 'none';
-  @Input() text: string = '';
+  classType: string = '';
 
   get classes(): string {
-    let baseClass = textTypes[this.type] || '';
-    const highlightClass = this.highlightText === 'ellipse'
-      ? ' text-error'
-      : this.highlightText === 'framed'
-        ? ' bg-warning text-primary'
-        : '';
-    return `[ ${baseClass} ${highlightClass} ]`;
+    if (textTypesClasses[this.type]) {
+      this.classType = textTypesClasses[this.type];
+    }
+    return `[ ${this.classType} ${this.highlightTextStyle} ]`;
+  }
+
+  get highlightTextStyle(): string {
+    switch (this.highlightText) {
+      case 'ellipse':
+        return ' text-error';
+      case 'framed':
+        return ' bg-warning text-primary p-2';
+      default:
+        return '';
+    }
   }
 }

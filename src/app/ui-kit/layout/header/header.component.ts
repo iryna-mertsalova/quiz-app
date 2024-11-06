@@ -5,5 +5,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  logoSrc: string = '../../../..//assets/images/main-logo.svg';
+  logoSrc: string = 'main-logo.svg';
 }

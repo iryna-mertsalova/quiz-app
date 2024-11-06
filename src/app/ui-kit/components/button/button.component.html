@@ -4,5 +4,5 @@
     <ng-content></ng-content>
   </app-ui-typography>
   <svg-icon [src]='imageSrc' class="px-1" *ngIf="iconState!='none'"
-    [svgStyle]="iconStyles"></svg-icon>
+    [svgStyle]="{'width.px': 14, 'height.px': 14 }"></svg-icon>
 </button>
