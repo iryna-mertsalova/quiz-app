@@ -29,12 +29,12 @@ jobs:
         run: npm run build
 
       - name: Build Angular app to prod
-        working-directory: ./quiz-app
+        working-directory: dist
         run: npm run build:prod
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/quiz-app/browser
+          folder: dist/browser
           branch: prod  
           token: ${{ secrets.GH_TOKEN }}
