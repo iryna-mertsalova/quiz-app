@@ -1,0 +1,2 @@
+import{a as i,f as t,g as o,m as n,o as p,w as s,y as m,z as l}from"./chunk-7CMS7XYF.js";var r=class a{static \u0275fac=function(e){return new(e||a)};static \u0275cmp=i({type:a,selectors:[["app-quizzes-catalog"]],standalone:!0,features:[p],decls:5,vars:0,consts:[[1,"text-bright"],["link","/main"],["size","sm","type","ghost","iconState","prev"]],template:function(e,u){e&1&&(t(0,"p",0),n(1,` Quizzes catalog mocked page
+`),o(),t(2,"app-ui-link",1)(3,"app-ui-button",2),n(4,"Go to main page"),o()())},dependencies:[s,m,l],encapsulation:2})};export{r as QuizzesCatalogComponent};
