@@ -29,8 +29,8 @@ jobs:
         run: npm run build
 
       - name: Build Angular app to prod
-        working-directory: quiz-app
-        run: npm install && npm run build:prod
+        working-directory: ./quiz-app
+        run: npm run build:prod
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
