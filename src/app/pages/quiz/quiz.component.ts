@@ -3,8 +3,8 @@ import { UIKitModule } from '../../ui-kit/ui-kit.module';
 
 @Component({
   standalone: true,
-  selector: 'app-question',
-  templateUrl: './question.component.html',
+  selector: 'app-quiz',
+  templateUrl: './quiz.component.html',
   imports: [UIKitModule],
 })
-export class QuestionComponent {}
+export class QuizComponent {}
