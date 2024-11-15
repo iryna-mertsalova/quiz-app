@@ -1,2 +1,0 @@
-import{a,f as t,g as n,m as o,o as p,w as s,y as m,z as r}from"./chunk-7CMS7XYF.js";var u=class i{static \u0275fac=function(e){return new(e||i)};static \u0275cmp=a({type:i,selectors:[["app-question"]],standalone:!0,features:[p],decls:5,vars:0,consts:[[1,"text-bright"],["link","/main"],["size","sm","type","ghost","iconState","prev"]],template:function(e,l){e&1&&(t(0,"p",0),o(1,` Question mocked page
-`),n(),t(2,"app-ui-link",1)(3,"app-ui-button",2),o(4,"Go to main page"),n()())},dependencies:[s,m,r],encapsulation:2})};export{u as QuestionComponent};
