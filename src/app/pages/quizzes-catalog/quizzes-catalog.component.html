@@ -1,10 +1,15 @@
-<div class="absolute inset-x-0 top flex flex-col items-center justify-between ">
+<div class="absolute inset-x-0 top flex flex-col items-center justify-between min-h-fit bg-primary">
   <div class="first:text-bright flex items-center *:px-1 pb-10 flex-wrap justify-center text-center w-3/4">
     <app-ui-typography type='H2'>Choose your</app-ui-typography>
     <app-ui-typography type='H3' highlightText="framed">Quiz</app-ui-typography>
     <app-ui-typography type='H2'>.</app-ui-typography>
   </div>
-  <app-ui-link link="/main">
+  <app-ui-link class="absolute left-3" link="/main">
     <app-ui-button size="sm" type="ghost" iconState="prev">Go to main page</app-ui-button>
   </app-ui-link>
+  <div class="flex justify-center flex-wrap w-full">
+    <ng-container *ngFor="let item of quizzesCatalog; index as i">
+      <app-card-quiz [styles]="getCardStyle(i)" [name]="item.name" [id]="item.id" />
+    </ng-container>
+  </div>
 </div>

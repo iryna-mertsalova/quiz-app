@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TextTypes } from '../../text-types';
+import { TextTypes } from '../../constants/text-types';
 
 @Component({
   selector: 'app-ui-button',
