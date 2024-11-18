@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
 import { quizzesCatalog } from '../../test-data/quizzes-catalog';
 import { CommonModule } from '@angular/common';
-import { CardItemStyle, cardItemStyles } from '../../ui-kit/constants/card-item';
+import {
+  CardColors,
+  CardItemStyle,
+  cardItemStyles,
+} from '../../ui-kit/constants/card-item';
 
 @Component({
   standalone: true,
@@ -15,6 +19,7 @@ export class QuizzesCatalogComponent {
 
   getCardStyle(index: number): CardItemStyle {
     const styleIndex = index + Math.floor(index / 5);
-    return cardItemStyles[styleIndex % cardItemStyles.length];
+    const enumValues = Object.values(CardColors);
+    return cardItemStyles[enumValues[styleIndex % enumValues.length]];
   }
 }
