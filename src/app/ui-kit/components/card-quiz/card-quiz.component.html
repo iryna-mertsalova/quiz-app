@@ -3,8 +3,10 @@
     <app-ui-typography type="Label">10 questions</app-ui-typography>
     <svg-icon [src]="styles.icon" [svgStyle]="{ 'width.px': 48, 'height.px': 48, }" class="px-1"></svg-icon>
   </div>
-  <app-ui-link link="/quiz/{{id}}"><app-ui-typography type="H6" [ngClass]="[
+  <app-ui-link link="/quiz/{{id}}">
+    <app-ui-typography type="H6" [ngClass]="[
       styles.textColor, 
       styles.textColor === 'text-primary' ? 'hover:text-accent' : 'hover:text-warning' 
-      ]">{{name}}</app-ui-typography></app-ui-link>
+      ]">{{name}}</app-ui-typography>
+  </app-ui-link>
 </div>
