@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
-import { quizzesCatalog } from '../../test-data/quizzes-catalog';
 import { CommonModule } from '@angular/common';
 import {
   CardColors,
   CardItemStyle,
   cardItemStyles,
 } from '../../ui-kit/constants/card-item';
-import { DataService } from '../../services/data.service';
 import { CategoryModel } from '../../services/model/category.model';
+import { Subscription } from 'rxjs';
+import { CategoryService } from '../../services/catalog.service';
 
 @Component({
   standalone: true,
@@ -16,21 +16,28 @@ import { CategoryModel } from '../../services/model/category.model';
   templateUrl: './quizzes-catalog.component.html',
   imports: [ UIKitModule, CommonModule ],
 })
-export class QuizzesCatalogComponent {
+export class QuizzesCatalogComponent implements OnInit, OnDestroy {
   quizzesCatalog: CategoryModel[] = [];
-  
-  constructor(private dataService: DataService) {}
+  subscription: Subscription = new Subscription();
+
+  constructor(private categoriesService: CategoryService) {}
 
   ngOnInit(): void {
-    this.dataService.loadData(); 
-    this.dataService.getData().subscribe((data) => {
-      this.quizzesCatalog = data;
-    });
+    this.subscription = this.categoriesService.get().subscribe(
+      data => this.quizzesCatalog = data,
+      error => alert(error)
+    );
   }
 
   getCardStyle(index: number): CardItemStyle {
     const styleIndex = index + Math.floor(index / 5);
     const enumValues = Object.values(CardColors);
     return cardItemStyles[enumValues[styleIndex % enumValues.length]];
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
