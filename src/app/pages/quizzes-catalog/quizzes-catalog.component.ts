@@ -7,6 +7,8 @@ import {
   CardItemStyle,
   cardItemStyles,
 } from '../../ui-kit/constants/card-item';
+import { DataService } from '../../services/data.service';
+import { CategoryModel } from '../../services/model/category.model';
 
 @Component({
   standalone: true,
@@ -15,7 +17,16 @@ import {
   imports: [ UIKitModule, CommonModule ],
 })
 export class QuizzesCatalogComponent {
-  quizzesCatalog = quizzesCatalog;
+  quizzesCatalog: CategoryModel[] = [];
+  
+  constructor(private dataService: DataService) {}
+
+  ngOnInit(): void {
+    this.dataService.loadData(); 
+    this.dataService.getData().subscribe((data) => {
+      this.quizzesCatalog = data;
+    });
+  }
 
   getCardStyle(index: number): CardItemStyle {
     const styleIndex = index + Math.floor(index / 5);
