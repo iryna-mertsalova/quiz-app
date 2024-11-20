@@ -19,16 +19,22 @@ import { CategoryService } from '../../services/catalog.service';
 export class QuizzesCatalogComponent implements OnInit, OnDestroy {
   quizzesCatalog: CategoryModel[] = [];
   errorMessage: string = '';
+  showSpinner: boolean = false;
 
   subscription!: Subscription;
 
   constructor(private categoriesService: CategoryService) {}
 
   ngOnInit(): void {
+    this.showSpinner = true;
     this.subscription = this.categoriesService.get().pipe(
       map(data => this.quizzesCatalog = data),
       catchError(error => this.errorMessage = error)
     ).subscribe();
+
+    setTimeout(() => {
+      this.showSpinner = false;
+    }, 2000);
   }
 
   getCardStyle(index: number): CardItemStyle {

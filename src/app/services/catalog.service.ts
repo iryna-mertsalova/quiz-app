@@ -6,7 +6,6 @@ import { CategoryModel } from './model/category.model';
 @Injectable({
   providedIn: 'root',
 })
-
 export class CategoryService {
   private API_URL: string = 'https://opentdb.com/api_category.php';
   constructor(private http: HttpClient) {}
