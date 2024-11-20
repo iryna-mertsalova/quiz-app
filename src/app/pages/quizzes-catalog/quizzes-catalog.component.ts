@@ -7,7 +7,7 @@ import {
   cardItemStyles,
 } from '../../ui-kit/constants/card-item';
 import { CategoryModel } from '../../services/model/category.model';
-import { Subscription } from 'rxjs';
+import { catchError, map, Subscription } from 'rxjs';
 import { CategoryService } from '../../services/catalog.service';
 
 @Component({
@@ -18,15 +18,17 @@ import { CategoryService } from '../../services/catalog.service';
 })
 export class QuizzesCatalogComponent implements OnInit, OnDestroy {
   quizzesCatalog: CategoryModel[] = [];
-  subscription: Subscription = new Subscription();
+  errorMessage: string = '';
+
+  subscription!: Subscription;
 
   constructor(private categoriesService: CategoryService) {}
 
   ngOnInit(): void {
-    this.subscription = this.categoriesService.get().subscribe(
-      data => this.quizzesCatalog = data,
-      error => alert(error)
-    );
+    this.subscription = this.categoriesService.get().pipe(
+      map(data => this.quizzesCatalog = data),
+      catchError(error => this.errorMessage = error)
+    ).subscribe();
   }
 
   getCardStyle(index: number): CardItemStyle {

@@ -6,6 +6,7 @@ import { CategoryModel } from './model/category.model';
 @Injectable({
   providedIn: 'root',
 })
+
 export class CategoryService {
   private API_URL: string = 'https://opentdb.com/api_category.php';
   constructor(private http: HttpClient) {}
@@ -15,8 +16,8 @@ export class CategoryService {
     .get<{ trivia_categories: CategoryModel[] }>(this.API_URL)
     .pipe(
       map(response => response.trivia_categories.slice(0, 10)),  
-      catchError((error) => {
-        return throwError(() => new Error('Failed to load data.'));
+      catchError(() => {
+        return throwError(() => new Error('An error occurred. Please reload the page or try later.'));
       })
     );
   }
