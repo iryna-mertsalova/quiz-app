@@ -14,7 +14,7 @@ export class CategoryService {
     return this.http
     .get<{ trivia_categories: CategoryModel[] }>(this.API_URL)
     .pipe(
-      map(response => response.trivia_categories.slice(0, 10)),  
+      map(response => response.trivia_categories.slice(1, 11)),  
       catchError(() => {
         return throwError(() => new Error('An error occurred. Please reload the page or try later.'));
       })
