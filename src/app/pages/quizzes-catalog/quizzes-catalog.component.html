@@ -17,11 +17,12 @@
     <app-ui-button class="" type="accent">I'm lucky</app-ui-button>  
   </div>
 
-  <div class="flex justify-center flex-wrap w-full">
+  <div class="flex justify-center flex-wrap w-full max-lg:mb-16">
     <ng-container *ngFor="let item of quizzesCatalog; index as i">
       <app-ui-card-quiz [styles]="getCardStyle(i)" [name]="item.name" [id]="item.id" />
     </ng-container>
   </div>
   
-  <app-ui-button class="m-6" type="accent">I'm lucky</app-ui-button>
+  <app-ui-button class="m-6 max-lg:hidden" type="accent">I'm lucky</app-ui-button>
 </div>
+<app-ui-spinner [show]="showSpinner" />
