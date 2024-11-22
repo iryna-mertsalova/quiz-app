@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -7,6 +7,7 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { appEffects, appStore } from '../store/app.store';
 import { CategoryService } from './services/category.service';
+import { ErrorHandleService } from './services/error.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideStore(appStore),
     provideEffects(appEffects),
     CategoryService,
+    [{ provide: ErrorHandler, useClass: ErrorHandleService }],
   ],
 };
