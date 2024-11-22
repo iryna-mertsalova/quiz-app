@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
 import { CommonModule } from '@angular/common';
 import {
@@ -7,8 +7,8 @@ import {
   cardItemStyles,
 } from '../../ui-kit/constants/card-item';
 import { CategoryModel } from '../../services/model/category.model';
-import { catchError, map, Subscription } from 'rxjs';
-import { CategoryService } from '../../services/catalog.service';
+import { Observable } from 'rxjs';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   standalone: true,
@@ -16,36 +16,21 @@ import { CategoryService } from '../../services/catalog.service';
   templateUrl: './quizzes-catalog.component.html',
   imports: [ UIKitModule, CommonModule ],
 })
-export class QuizzesCatalogComponent implements OnInit, OnDestroy {
-  quizzesCatalog: CategoryModel[] = [];
-  errorMessage: string = '';
-  showSpinner: boolean = false;
-
-  subscription!: Subscription;
-
-  constructor(private categoriesService: CategoryService) {}
+export class QuizzesCatalogComponent implements OnInit {
+  categories$!: Observable<CategoryModel[]>;
+  isLoading$!: Observable<boolean>;
+  
+  constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
-    this.showSpinner = true;
-    this.subscription = this.categoriesService.get().pipe(
-      map(data => this.quizzesCatalog = data),
-      catchError(error => this.errorMessage = error)
-    ).subscribe();
-
-    setTimeout(() => {
-      this.showSpinner = false;
-    }, 2000);
+    this.categories$ = this.storeService.getCategories();
+    this.isLoading$ = this.storeService.getLoading();
+    this.storeService.loadCategories();
   }
 
   getCardStyle(index: number): CardItemStyle {
     const styleIndex = index + Math.floor(index / 5);
     const enumValues = Object.values(CardColors);
     return cardItemStyles[enumValues[styleIndex % enumValues.length]];
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
   }
 }
