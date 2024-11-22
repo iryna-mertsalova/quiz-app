@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './spinner.component.html',
 })
 export class SpinnerComponent {
-  @Input() show: boolean | null = false;
+  @Input() show: boolean = false;
 }

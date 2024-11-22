@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
 import { CommonModule } from '@angular/common';
 import {
@@ -8,9 +8,7 @@ import {
 } from '../../ui-kit/constants/card-item';
 import { CategoryModel } from '../../services/model/category.model';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import * as CategoryActions from '../../../store/category/category.actions';
-import { AppState } from '../../../store/app.store';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   standalone: true,
@@ -18,14 +16,16 @@ import { AppState } from '../../../store/app.store';
   templateUrl: './quizzes-catalog.component.html',
   imports: [ UIKitModule, CommonModule ],
 })
-export class QuizzesCatalogComponent {
-  categories$: Observable<CategoryModel[]>;
-  isLoading$: Observable<boolean>;
+export class QuizzesCatalogComponent implements OnInit {
+  categories$!: Observable<CategoryModel[]>;
+  isLoading$!: Observable<boolean>;
   
-  constructor(private store: Store<AppState>) {
-    this.categories$ = this.store.select(state => state.categories.categories);
-    this.isLoading$ = this.store.select(state => state.categories.loading);
-    this.store.dispatch(CategoryActions.loadCategories());
+  constructor(private storeService: StoreService) { }
+
+  ngOnInit(): void {
+    this.categories$ = this.storeService.getCategories();
+    this.isLoading$ = this.storeService.getLoading();
+    this.storeService.loadCategories();
   }
 
   getCardStyle(index: number): CardItemStyle {
