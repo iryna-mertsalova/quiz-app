@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.store';
-import { catchError, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CategoryModel } from './model/category.model';
 import * as CategoryActions from '../../store/category/category.actions';
-import { ErrorHandleService } from './error.service';
-
 @Injectable({
   providedIn: 'root',
 })
