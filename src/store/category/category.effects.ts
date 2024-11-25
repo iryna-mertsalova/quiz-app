@@ -8,14 +8,18 @@ import {
 } from 'rxjs';
 import { CategoryService } from '../../app/services/category.service';
 import * as CategoryActions from './category.actions';
+import { ErrorHandleService } from '../../app/services/error.service';
 
 @Injectable()
 export class CategoryEffects {
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private errorService: ErrorHandleService) {}
 
   loadCategories$ = createEffect(() => inject(Actions).pipe(ofType(CategoryActions.loadCategories),
     mergeMap(() => this.categoryService.get().pipe(
       map(categories => CategoryActions.loadCategoriesSuccess({ categories })),
-      catchError(error => of(CategoryActions.loadCategoriesFail({ error: error.message })))
+      catchError((error) => {
+        this.errorService.handleError(error); 
+        return of(CategoryActions.loadCategoriesFail({ error }));
+      })
     ))));
 }

@@ -10,31 +10,17 @@ import { ErrorHandleService } from './error.service';
   providedIn: 'root',
 })
 export class StoreService {
-  constructor(private store: Store<AppState>, private errorService: ErrorHandleService) {}
+  constructor(private store: Store<AppState>) {}
 
   getCategories(): Observable<CategoryModel[]> {
-    return this.store.select(state => state.categories.categories).pipe(
-      catchError((error) => {
-        this.errorService.handleError(error);
-        return of([]); 
-      })
-    );
+    return this.store.select(state => state.categories.categories);
   }
 
   getLoading(): Observable<boolean> {
-    return this.store.select(state => state.categories.loading).pipe(
-      catchError((error) => {
-        this.errorService.handleError(error);
-        return of(false); 
-      })
-    );
+    return this.store.select(state => state.categories.loading);
   }
 
   loadCategories(): void {    
-    try {
-      this.store.dispatch(CategoryActions.loadCategories());
-    } catch (error) {
-      this.errorService.handleError(error);
-    }
+    this.store.dispatch(CategoryActions.loadCategories());
   }
 }
