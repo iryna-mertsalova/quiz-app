@@ -9,12 +9,15 @@
     <app-ui-button size="sm" type="ghost" iconState="prev">Go to main page</app-ui-button>
   </app-ui-link>
 
-  <div class="lg:hidden max-lg:fixed bottom-0 w-full flex items-center justify-between p-5 rounded-t-lg bg-primary border-t-4 border-opacity-75 border-t-muted">
+  <div
+    class="lg:hidden max-lg:fixed bottom-0 w-full flex items-center justify-between p-5 rounded-t-lg bg-primary border-t-4 border-opacity-75 border-t-muted">
     <app-ui-link link="/main">
       <app-ui-button size="sm" type="ghost" iconState="prev">Go to main page</app-ui-button>
     </app-ui-link>
 
-    <app-ui-button class="" type="accent">I'm lucky</app-ui-button>  
+    <app-ui-link link="/quiz/Lucky quiz">
+      <app-ui-button type="accent">I'm lucky</app-ui-button>
+    </app-ui-link>
   </div>
 
   <div class="flex justify-center flex-wrap w-full max-lg:mb-16">
@@ -22,7 +25,9 @@
       <app-ui-card-quiz [styles]="getCardStyle(i)" [name]="item.name" [id]="item.id" />
     </ng-container>
   </div>
-  
-  <app-ui-button class="m-6 max-lg:hidden" type="accent">I'm lucky</app-ui-button>
+
+  <app-ui-link link="/quiz/Lucky quiz">
+    <app-ui-button class="m-6 max-lg:hidden" type="accent">I'm lucky</app-ui-button>
+  </app-ui-link>
 </div>
 <app-ui-spinner [show]="!!(isLoading$ | async)" />
