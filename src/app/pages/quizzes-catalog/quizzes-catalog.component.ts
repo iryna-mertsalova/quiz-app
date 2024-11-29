@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
 import { CommonModule } from '@angular/common';
 import {
@@ -7,7 +7,7 @@ import {
   cardItemStyles,
 } from '../../ui-kit/constants/card-item';
 import { CategoryModel } from '../../services/model/category.model';
-import { Observable, Subscription, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { StoreService } from '../../services/store.service';
 
 @Component({
@@ -23,8 +23,9 @@ export class QuizzesCatalogComponent implements OnInit {
   constructor(private storeService: StoreService) { }
   
   ngOnInit(): void {
-    this.categories$ = this.storeService.loadCategories();
+    this.categories$ = this.storeService.getCategories();
     this.isLoading$ = this.storeService.getLoading();
+    this.storeService.loadCategories();
   }
   
   getCardStyle(index: number): CardItemStyle {
