@@ -8,6 +8,7 @@ import { TextTypes, textTypesClasses } from '../../constants/text-types';
 export class TypographyComponent {
   @Input() type: TextTypes = 'P1';
   @Input() highlightText: 'none' | 'framed' | 'ellipse' = 'none';
+  @Input() highlightColor: 'bg-error' | 'bg-warning' = 'bg-warning';
   classType: string = '';
 
   get classes(): string {
@@ -22,7 +23,7 @@ export class TypographyComponent {
       case 'ellipse':
         return ' text-error';
       case 'framed':
-        return ' bg-warning text-primary p-2';
+        return `${this.highlightColor} text-${this.highlightColor == 'bg-warning' ? 'primary' : 'bright'} p-2`;
       default:
         return '';
     }

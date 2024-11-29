@@ -1,0 +1,50 @@
+<div class="bg-success px-7 py-10 rounded-3xl flex flex-col items-center">
+  <div class="w-full flex items-start justify-between">
+    <span class="flex items-center">
+      <app-ui-typography type="H5" highlightText="framed" highlightColor="bg-warning">1</app-ui-typography>
+      <app-ui-typography type="P1" class="text-bright ml-2">/10</app-ui-typography>
+    </span>
+    <span class="flex">
+      <ng-container class="flex" *ngFor="let item of images">
+        <svg-icon [src]="item" [svgStyle]="{ 'width.px': 90, 'height.px': 90, }"></svg-icon>
+      </ng-container>
+    </span>
+  </div>
+  <span class="text-bright flex items-center flex-wrap *:mb-2 py-6">
+    <app-ui-typography class="mr-2" type="H4">Let's begin with this</app-ui-typography>
+    <app-ui-typography type="H4" highlightText="framed" highlightColor="bg-error">legendary pop
+      group</app-ui-typography>
+    <app-ui-typography type="H4">What's their name?</app-ui-typography>
+  </span>
+
+  <div>
+    <span class="radio">
+      <input id="radio-1" name="radio" type="radio" checked>
+      <label for="radio-1" class="radio-label">
+        <app-ui-typography>Papper Ladies</app-ui-typography>
+      </label>
+    </span>
+    <span class="radio">
+      <input id="radio-2" name="radio" type="radio">
+      <label for="radio-2" class="radio-label">
+        <app-ui-typography>Spice Girls</app-ui-typography>
+      </label>
+    </span>
+    <span class="radio">
+      <input id="radio-3" name="radio" type="radio">
+      <label for="radio-3" class="radio-label">
+        <app-ui-typography>Jalapenia Gaals</app-ui-typography>
+      </label>
+    </span>
+    <span class="radio">
+      <input id="radio-4" name="radio" type="radio">
+      <label for="radio-4" class="radio-label">
+        <app-ui-typography>Little mix</app-ui-typography>
+      </label>
+    </span>
+  </div>
+  <div class="flex items-center justify-between w-full pt-10">
+    <app-ui-button [disabled]="true" type="ghost" iconState="prev">Prev question</app-ui-button>
+    <app-ui-button type="accent" iconState="next">Next question</app-ui-button>
+  </div>
+</div>
