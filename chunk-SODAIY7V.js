@@ -1,2 +1,0 @@
-import{F as s,U as e,V as i,aa as n,ca as a,wa as p,ya as m,za as c}from"./chunk-H7SGWGB2.js";var r=class o{static \u0275fac=function(t){return new(t||o)};static \u0275cmp=s({type:o,selectors:[["app-statistics"]],standalone:!0,features:[a],decls:5,vars:0,consts:[[1,"text-bright"],["link","/main"],["size","sm","type","ghost","iconState","prev"]],template:function(t,f){t&1&&(e(0,"p",0),n(1,` Statistics mocked page
-`),i(),e(2,"app-ui-link",1)(3,"app-ui-button",2),n(4,"Go to main page"),i()())},dependencies:[p,m,c],encapsulation:2})};export{r as StatisticsComponent};
