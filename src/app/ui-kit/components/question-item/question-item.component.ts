@@ -4,7 +4,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 @Component({
   selector: 'app-ui-question-item',
   templateUrl: './question-item.component.html',
-  styleUrls: ['./question-item.component.scss'],
 })
 export class QuestionItemComponent {
   images: string[] = [

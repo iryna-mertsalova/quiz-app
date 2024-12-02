@@ -9,10 +9,11 @@ import { RouterModule } from '@angular/router';
 import { CardQuizComponent } from './components/card-quiz/card-quiz.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { QuestionItemComponent } from './components/question-item/question-item.component';
+import { RadioButtonComponent } from './components/radio-button/radio-button.component';
 
 @NgModule({
-  declarations: [ ButtonComponent, TypographyComponent, LinkComponent, HeaderComponent, CardQuizComponent, SpinnerComponent, QuestionItemComponent ],
-  exports: [ ButtonComponent, TypographyComponent, LinkComponent, HeaderComponent, CardQuizComponent, SpinnerComponent, QuestionItemComponent ],
+  declarations: [ ButtonComponent, TypographyComponent, LinkComponent, HeaderComponent, CardQuizComponent, SpinnerComponent, QuestionItemComponent, RadioButtonComponent ],
+  exports: [ ButtonComponent, TypographyComponent, LinkComponent, HeaderComponent, CardQuizComponent, SpinnerComponent, QuestionItemComponent, RadioButtonComponent ],
   imports: [ CommonModule, AngularSvgIconModule.forRoot(), RouterModule ],
 })
 export class UIKitModule {}

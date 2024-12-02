@@ -18,30 +18,11 @@
   </span>
 
   <div>
-    <span class="radio">
-      <input id="radio-1" name="radio" type="radio" checked>
-      <label for="radio-1" class="radio-label">
-        <app-ui-typography>Papper Ladies</app-ui-typography>
-      </label>
-    </span>
-    <span class="radio">
-      <input id="radio-2" name="radio" type="radio">
-      <label for="radio-2" class="radio-label">
-        <app-ui-typography>Spice Girls</app-ui-typography>
-      </label>
-    </span>
-    <span class="radio">
-      <input id="radio-3" name="radio" type="radio">
-      <label for="radio-3" class="radio-label">
-        <app-ui-typography>Jalapenia Gaals</app-ui-typography>
-      </label>
-    </span>
-    <span class="radio">
-      <input id="radio-4" name="radio" type="radio">
-      <label for="radio-4" class="radio-label">
-        <app-ui-typography>Little mix</app-ui-typography>
-      </label>
-    </span>
+    <app-ui-radio-button text="Papper Ladies"/>
+    <app-ui-radio-button text="Spice Girls"/>
+    <app-ui-radio-button text="Jalapenia Gaals"/>
+    <app-ui-radio-button text="Little mix"/>
+   
   </div>
   <div class="flex items-center justify-between w-full pt-10">
     <app-ui-button [disabled]="true" type="ghost" iconState="prev">Prev question</app-ui-button>
