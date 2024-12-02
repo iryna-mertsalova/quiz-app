@@ -11,7 +11,7 @@ export class HeaderComponent {
 
   menuItems = [
     { link: 'quizzes-catalog', label: 'Quizzes catalog' },
-    { link: 'question', label: 'Question' },
+    { link: 'quiz', label: 'Quiz' },
     { link: 'statistics', label: 'Statistics' },
   ];
 
