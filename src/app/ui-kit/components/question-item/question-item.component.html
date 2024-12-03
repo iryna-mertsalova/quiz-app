@@ -1,7 +1,7 @@
-<div class="bg-success px-7 py-10 rounded-3xl flex flex-col items-center">
+<div class="bg-success px-7 py-10 rounded-3xl flex flex-col items-center justify-between lg:min-h-[550px]">
   <div class="w-full flex items-start justify-between">
     <span class="flex items-center">
-      <app-ui-typography type="H5" highlightText="framed" highlightColor="bg-warning">1</app-ui-typography>
+      <app-ui-typography type="H5" highlightText="framed" highlightColor="bg-warning">{{item.id}}</app-ui-typography>
       <app-ui-typography type="P1" class="text-bright ml-2">/10</app-ui-typography>
     </span>
 
@@ -12,28 +12,30 @@
     </span>
   </div>
 
-  <span class="lg:flex max-lg:hidden text-bright items-center flex-wrap *:mb-2 py-6">
-    <app-ui-typography class="mr-2" type="H4">Let's begin with this</app-ui-typography>
-    <app-ui-typography type="H4" highlightText="framed" highlightColor="bg-error">legendary pop group</app-ui-typography>
-    <app-ui-typography type="H4">What's their name?</app-ui-typography>
+  <span class="w-full lg:flex max-lg:hidden text-bright items-center justify-start flex-wrap *:mb-2 *:mr-1 py-6">
+    <app-ui-typography class="mr-2" type="H4">{{getFormattedText().start}}</app-ui-typography>
+    <app-ui-typography type="H4" highlightText="framed"
+      highlightColor="bg-error">{{getFormattedText().middle}}</app-ui-typography>
+    <app-ui-typography type="H4">{{getFormattedText().end}}</app-ui-typography>
   </span>
   <span class="lg:hidden max-lg:flex text-bright items-center justify-center flex-wrap py-6">
-    <app-ui-typography class="mr-2" type="H5">Let's begin with this</app-ui-typography>
-    <app-ui-typography type="H5" highlightText="framed" highlightColor="bg-error">legendary</app-ui-typography>
-    <app-ui-typography type="H5" highlightText="framed" highlightColor="bg-error">pop</app-ui-typography>
-    <app-ui-typography type="H5" highlightText="framed" highlightColor="bg-error">group</app-ui-typography>
-    <app-ui-typography class="ml-2" type="H5">What's their name?</app-ui-typography>
+    <app-ui-typography class="mr-2" type="H5">{{getFormattedText().start}}</app-ui-typography>
+    <app-ui-typography type="H5" highlightText="framed"
+      highlightColor="bg-error">{{getFormattedText().middle}}</app-ui-typography>
+    <app-ui-typography class="ml-2" type="H5">{{getFormattedText().end}}</app-ui-typography>
   </span>
+
   <div>
-    
-    <app-ui-radio-button text="Papper Ladies" />
-    <app-ui-radio-button text="Spice Girls" />
-    <app-ui-radio-button text="Jalapenia Gaals" />
-    <app-ui-radio-button text="Little mix" />
+    <ng-container class="flex items-start" *ngFor="let answer of item.answers">
+      <app-ui-radio-button [text]="answer" />
+    </ng-container>
   </div>
 
   <div class="flex items-center justify-between w-full pt-10">
-    <app-ui-button [disabled]="true" type="ghost" iconState="prev">Prev question</app-ui-button>
-    <app-ui-button type="accent" iconState="next">Next question</app-ui-button>
+    <app-ui-button (click)="prev.emit()" [disabled]="item.id == 1 ? true : false" type="ghost" iconState="prev">Prev
+      question</app-ui-button>
+    <app-ui-button (click)="next.emit()" type="accent" iconState="next">
+      {{item.id==10 ? 'Finish' : 'Next question'}}
+      </app-ui-button>
   </div>
 </div>
