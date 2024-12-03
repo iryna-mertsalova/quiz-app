@@ -21,13 +21,13 @@ export class QuizzesCatalogComponent implements OnInit {
   isLoading$!: Observable<boolean>;
   
   constructor(private storeService: StoreService) { }
-
+  
   ngOnInit(): void {
     this.categories$ = this.storeService.getCategories();
     this.isLoading$ = this.storeService.getLoading();
     this.storeService.loadCategories();
   }
-
+  
   getCardStyle(index: number): CardItemStyle {
     const styleIndex = index + Math.floor(index / 5);
     const enumValues = Object.values(CardColors);
