@@ -14,7 +14,7 @@ $color2: #e23d69;
     opacity: 0;
     position: absolute;
 
-    + .radio-label {
+    + .radio__label {
       display: flex;
 
       &:before {
@@ -32,7 +32,7 @@ $color2: #e23d69;
     }
 
     &:checked {
-      + .radio-label {
+      + .radio__label {
         color: theme('colors.bright');
 
         &:before {
@@ -44,7 +44,7 @@ $color2: #e23d69;
     }
 
     &:focus {
-      + .radio-label {
+      + .radio__label {
         color: theme('colors.bright');
 
         &:before {
