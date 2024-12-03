@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-quiz',
-  templateUrl: './quiz.component.html',
+  templateUrl: './question.component.html',
   imports: [UIKitModule],
 })
 export class QuizComponent implements OnInit {
