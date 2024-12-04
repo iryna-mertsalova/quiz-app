@@ -9,11 +9,33 @@ import { RouterModule } from '@angular/router';
 import { CardQuizComponent } from './components/card-quiz/card-quiz.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { QuestionItemComponent } from './components/question-item/question-item.component';
-import { RadioButtonComponent } from './components/radio-button/radio-button.component';
+import { RadioButtonComponent } from './components/radio-group/radio-button/radio-button.component';
+import { RadioGroupComponent } from './components/radio-group/radio-group.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [ ButtonComponent, TypographyComponent, LinkComponent, HeaderComponent, CardQuizComponent, SpinnerComponent, QuestionItemComponent, RadioButtonComponent ],
-  exports: [ ButtonComponent, TypographyComponent, LinkComponent, HeaderComponent, CardQuizComponent, SpinnerComponent, QuestionItemComponent, RadioButtonComponent ],
-  imports: [ CommonModule, AngularSvgIconModule.forRoot(), RouterModule ],
+  declarations: [
+    ButtonComponent,
+    TypographyComponent,
+    LinkComponent,
+    HeaderComponent,
+    CardQuizComponent,
+    SpinnerComponent,
+    QuestionItemComponent,
+    RadioButtonComponent,
+    RadioGroupComponent,
+  ],
+  exports: [
+    ButtonComponent,
+    TypographyComponent,
+    LinkComponent,
+    HeaderComponent,
+    CardQuizComponent,
+    SpinnerComponent,
+    QuestionItemComponent,
+    RadioButtonComponent,
+    RadioGroupComponent,
+  ],
+  imports: [ CommonModule, AngularSvgIconModule.forRoot(), RouterModule, ReactiveFormsModule ],
 })
 export class UIKitModule {}

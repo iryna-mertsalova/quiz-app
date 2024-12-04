@@ -19,17 +19,16 @@
     <app-ui-typography type="H4">{{getFormattedText().end}}</app-ui-typography>
   </span>
 
-  <div>
-    <ng-container class="flex items-start" *ngFor="let answer of item.answers">
-      <app-ui-radio-button [text]="answer" />
-    </ng-container>
-  </div>
+  <form [formGroup]="form">
+    <app-ui-radio-group formControlName="selectedOption" [options]="item.answers">
+    </app-ui-radio-group>
+  </form>
 
   <div class="flex items-center justify-between w-full pt-10">
-    <app-ui-button (click)="prev.emit()" [disabled]="item.id == 1 ? true : false" type="ghost" iconState="prev">Prev
+    <app-ui-button (click)="handlePrev()" [disabled]="item.id == 1" type="ghost" iconState="prev">Prev
       question</app-ui-button>
-    <app-ui-button (click)="next.emit()" type="accent" iconState="next">
+    <app-ui-button (click)="handleNext()" [disabled]="selectedAnswer == null" type="accent" iconState="next">
       {{item.id==10 ? 'Finish' : 'Next question'}}
-      </app-ui-button>
+    </app-ui-button>
   </div>
 </div>
