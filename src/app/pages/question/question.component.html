@@ -1,5 +1,5 @@
 <div class="absolute inset-x-0 top flex flex-col items-center justify-between min-h-fit w-full bg-primary pb-8">
-  <div class="first:text-bright flex items-center *:px-1 pb-3 flex-wrap justify-center text-center w-3/4">
+  <div class="first:text-bright flex items-center *:p-1.5 pb-3 flex-wrap justify-center text-center w-3/4">
     <app-ui-typography type='H2'>Emoji Bands </app-ui-typography>
     <app-ui-typography type='H3'>Quiz</app-ui-typography>
     <app-ui-typography type='H2' highlightText="ellipse">.</app-ui-typography>
@@ -9,7 +9,7 @@
     <app-ui-button size="md" type="accent" iconState="prev">Go to catalog</app-ui-button>
   </app-ui-link>
 
-    <app-ui-question-item 
+  <app-ui-question-item 
     [id]="quiz_data[currentIndex].id" 
     [item]="quiz_data[currentIndex]" 
     (next)="nextQuestion()" 
