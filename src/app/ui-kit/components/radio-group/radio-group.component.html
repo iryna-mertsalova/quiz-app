@@ -1,0 +1,9 @@
+<div class="radio-group">
+  <ng-container *ngFor="let option of options">
+    <app-ui-radio-button 
+      [text]="option" 
+      [isChecked]="value === option"
+      (change)="selectOption(option)" 
+    />
+  </ng-container>
+</div>
