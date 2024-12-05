@@ -7,6 +7,6 @@ import { FormControl } from '@angular/forms';
 })
 export class RadioGroupComponent {
   @Input() options: string[] = [];
-  value: string | null = null;
   @Input() control!: FormControl;
+  value: string | null = null;
 }
