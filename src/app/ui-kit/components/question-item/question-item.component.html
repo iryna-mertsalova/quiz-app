@@ -19,8 +19,8 @@
     <app-ui-typography type="H4">{{getFormattedText().end}}</app-ui-typography>
   </span>
 
-  <form [formGroup]="form">
-    <app-ui-radio-group formControlName="selectedOption" [options]="item.answers">
+  <form>
+    <app-ui-radio-group [control]="formControl" [options]="item.answers">
     </app-ui-radio-group>
   </form>
 

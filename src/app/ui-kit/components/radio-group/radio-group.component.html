@@ -2,8 +2,7 @@
   <ng-container *ngFor="let option of options">
     <app-ui-radio-button 
       [text]="option" 
-      [isChecked]="value === option"
-      (change)="selectOption(option)" 
+      [control]="control" 
     />
   </ng-container>
 </div>

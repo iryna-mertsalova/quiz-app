@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { QuestionModel } from '../../../services/model/question.model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-ui-question-item',
@@ -17,22 +17,20 @@ export class QuestionItemComponent {
     'avatars/Profile.svg',
   ];  
   
-  form = new FormGroup({
-    selectedOption: new FormControl<string | null>(null),
-  });
+  formControl = new FormControl();
 
-  get selectedAnswer() {
-    return this.form.get('selectedOption')?.value;
+  get selectedAnswer(): string | null | undefined {
+    return this.formControl.value;
   }
 
   handlePrev(): void {
     this.prev.emit();
-    this.form.reset();
+    this.formControl.reset();
   }
   
   handleNext(): void {
     this.next.emit();
-    this.form.reset();
+    this.formControl.reset();
   }
 
   getFormattedText(): { start: string, middle: string, end: string } {
