@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-ui-radio-button',
@@ -7,11 +8,5 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class RadioButtonComponent {
   @Input() text: string = '';
-  @Input() isChecked: boolean = false;
-  @Output() onChange = new EventEmitter<string>();
-
-  handleChange() {
-    this.isChecked = true;
-    this.onChange.emit(this.text);
-  }
+  @Input() control!: FormControl;
 }

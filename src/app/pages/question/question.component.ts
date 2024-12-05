@@ -17,13 +17,13 @@ export class QuizComponent implements OnInit {
   
   constructor(private route: ActivatedRoute) {}
 
-  nextQuestion() {
+  nextQuestion(): void {
     if (this.currentIndex < this.quiz_data.length - 1) {
       this.currentIndex++;
     }
   }
 
-  prevQuestion() {
+  prevQuestion(): void {
     if (this.currentIndex > 0) {
       this.currentIndex--;
     }

@@ -25,8 +25,8 @@
     <app-ui-typography class="ml-2" type="H5">{{getFormattedText().end}}</app-ui-typography>
   </span>
 
-  <form [formGroup]="form">
-    <app-ui-radio-group formControlName="selectedOption" [options]="item.answers">
+  <form>
+    <app-ui-radio-group [control]="formControl" [options]="item.answers">
     </app-ui-radio-group>
   </form>
 
