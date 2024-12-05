@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-ui-radio-button',
@@ -7,4 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class RadioButtonComponent {
   @Input() text: string = '';
+  @Input() control!: FormControl;
 }
