@@ -1,5 +1,8 @@
 export interface QuestionModel {
-    id: number;
-    question: string;
-    answers: string[];
+  type: boolean;
+  difficulty: string;
+  category: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
 }
