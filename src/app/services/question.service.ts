@@ -2,17 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { QuestionModel } from './model/question.model';
+import { API_ENDPOINTS } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuestionService {
-  private API_URL: string = 'https://opentdb.com/api.php?amount=10&category=11&type=multiple';
   constructor(private http: HttpClient) {}
 
   get(category: number): Observable<QuestionModel[]> {
     return this.http
-    .get<{ results: QuestionModel[] }>(this.API_URL)
+    .get<{ results: QuestionModel[] }>(`${API_ENDPOINTS.QUESTION_URL}category=${category}&type=multiple`)
     .pipe(
       map(response => response.results),  
       catchError(() => {

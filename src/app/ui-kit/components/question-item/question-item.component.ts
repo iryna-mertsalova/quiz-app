@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { QuestionModel } from '../../../services/model/question.model';
 import { FormControl } from '@angular/forms';
+import { QUESTIONS_SIZE } from '../../../utils/constants';
 
 @Component({
   selector: 'app-ui-question-item',
@@ -12,6 +13,7 @@ export class QuestionItemComponent {
   @Input() id: number = 0;
   @Output() next = new EventEmitter<void>(); 
   @Output() prev = new EventEmitter<void>(); 
+  @Output() getSelectedAnswer = new EventEmitter<string>(); 
   
   images: string[] = [
     'avatars/Profile-1.svg',
@@ -20,8 +22,10 @@ export class QuestionItemComponent {
   ];  
   
   formControl = new FormControl();
+  size: number = QUESTIONS_SIZE;
 
   get selectedAnswer(): string | null | undefined {
+    this.getSelectedAnswer.emit(this.formControl.value);
     return this.formControl.value;
   }
 

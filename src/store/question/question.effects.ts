@@ -20,19 +20,12 @@ export class QuestionEffects {
 
   loadQuestions$ = createEffect(() => inject(Actions)
   .pipe(ofType(QuestionActions.loadQuestions),
-    switchMap(() => this.store.select(state => state.questions.questions).pipe(
+    switchMap(({ categoryId }) => this.questionService.get(categoryId).pipe(
       takeUntilDestroyed(this.destroyRef),
-      switchMap((questions) => {
-        if (questions && questions.length > 0) {
-          return of(QuestionActions.loadQuestionsSuccess({ questions }));
-        }
-        return this.questionService.get(11).pipe(
-          map((questions : QuestionModel[]) => QuestionActions.loadQuestionsSuccess({ questions })),
-          catchError((error) => {
-            this.errorService.handleError(error); 
-            return of(QuestionActions.loadQuestionsFail({ error }));
-          })
-        );    
-      })
+      map((questions: QuestionModel[]) => QuestionActions.loadQuestionsSuccess({ questions })),
+      catchError((error) => {
+        this.errorService.handleError(error);
+        return of(QuestionActions.loadQuestionsFail({ error }));
+      }) 
     ))));
 }

@@ -14,10 +14,11 @@
     [item]="(currentQuestion$ | async)!" 
     (next)="nextQuestion()" 
     (prev)="prevQuestion()" 
+    (getSelectedAnswer)="getSelectedAnswer($event)"
     [options]="(options | async)!"
     class="lg:w-1/2 md:w-2/3 max-md:w-10/12" />
 
-  <app-ui-link class="lg:absolute max-lg:hidden left-3" link="/main">
+  <app-ui-link class="lg:absolute max-lg:hidden left-3" link="/quizzes-catalog">
     <app-ui-button size="md" type="accent" iconState="prev">Go to catalog</app-ui-button>
   </app-ui-link>
 </div>

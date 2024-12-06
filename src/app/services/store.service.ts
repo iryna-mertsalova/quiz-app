@@ -35,7 +35,7 @@ export class StoreService {
     this.store.dispatch(CategoryActions.loadCategories());
   }
 
-  loadQuestions(): void {    
-    this.store.dispatch(QuestionActions.loadQuestions());
+  loadQuestions(categoryId: number): void {   
+    this.store.dispatch(QuestionActions.loadQuestions({ categoryId: categoryId }));
   }
 }
