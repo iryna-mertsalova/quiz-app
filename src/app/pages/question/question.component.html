@@ -8,15 +8,17 @@
   <app-ui-link class="mb-4 lg:hidden" link="/quizzes-catalog">
     <app-ui-button size="md" type="accent" iconState="prev">Go to catalog</app-ui-button>
   </app-ui-link>
-
+  
   <app-ui-question-item 
-    [id]="quiz_data[currentIndex].id" 
-    [item]="quiz_data[currentIndex]" 
+    [id]="id" 
+    [item]="(currentQuestion$ | async)!" 
     (next)="nextQuestion()" 
     (prev)="prevQuestion()" 
+    [options]="(options | async)!"
     class="lg:w-1/2 md:w-2/3 max-md:w-10/12" />
 
   <app-ui-link class="lg:absolute max-lg:hidden left-3" link="/main">
     <app-ui-button size="md" type="accent" iconState="prev">Go to catalog</app-ui-button>
   </app-ui-link>
 </div>
+<app-ui-spinner [show]="!!(isLoading$ | async)" />
