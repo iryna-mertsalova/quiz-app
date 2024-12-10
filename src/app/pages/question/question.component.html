@@ -23,4 +23,8 @@
   </app-ui-link>
 </div>
 <app-ui-spinner [show]="!!(isLoading$ | async)" />
-<app-ui-modal-window *ngIf="(modalWindowState$ | async)" (confirm)="handleModalResponse($event)" />
+<app-ui-modal-window 
+  *ngIf="(modalWindowState$ | async)" 
+  (confirm)="handleModalResponse($event)" 
+  [data]="(modalWindowData$ | async)!"
+/>
