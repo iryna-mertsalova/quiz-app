@@ -1,18 +1,18 @@
-import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CategoryModel } from './model/category.model';
+import { API_ENDPOINTS } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  private API_URL: string = 'https://opentdb.com/api_category.php';
   constructor(private http: HttpClient) {}
 
   get(): Observable<CategoryModel[]> {
     return this.http
-    .get<{ trivia_categories: CategoryModel[] }>(this.API_URL)
+    .get<{ trivia_categories: CategoryModel[] }>(API_ENDPOINTS.CATEGORY_URL)
     .pipe(
       map(response => response.trivia_categories.slice(1, 11)),  
       catchError(() => {

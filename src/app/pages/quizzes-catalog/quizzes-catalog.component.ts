@@ -24,7 +24,7 @@ export class QuizzesCatalogComponent implements OnInit {
   
   ngOnInit(): void {
     this.categories$ = this.storeService.getCategories();
-    this.isLoading$ = this.storeService.getLoading();
+    this.isLoading$ = this.storeService.getLoadingCategories();
     this.storeService.loadCategories();
   }
   
