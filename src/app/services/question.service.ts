@@ -10,7 +10,7 @@ import { API_ENDPOINTS } from '../utils/constants';
 export class QuestionService {
   constructor(private http: HttpClient) {}
   
-  get(category: number): Observable<QuestionModel[]> {
+  getQuestions(category: number): Observable<QuestionModel[]> {
     const params = new URLSearchParams();
     if (category !== 0) {
       params.append('category', category.toString());

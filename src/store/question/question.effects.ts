@@ -20,7 +20,7 @@ export class QuestionEffects {
 
   loadQuestions$ = createEffect(() => inject(Actions)
   .pipe(ofType(QuestionActions.loadQuestions),
-    switchMap(({ categoryId }) => this.questionService.get(categoryId).pipe(
+    switchMap(({ categoryId }) => this.questionService.getQuestions(categoryId).pipe(
       takeUntilDestroyed(this.destroyRef),
       map((questions: QuestionModel[]) => QuestionActions.loadQuestionsSuccess({ questions })),
       catchError((error) => {

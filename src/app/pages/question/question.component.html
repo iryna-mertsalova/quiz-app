@@ -14,7 +14,7 @@
     [item]="(currentQuestion$ | async)!" 
     (next)="nextQuestion()" 
     (prev)="prevQuestion()" 
-    (getSelectedAnswer)="getSelectedAnswer($event)"
+    (getSelectedAnswer)="setSelectedAnswer($event)"
     [options]="(options | async)!"
     class="lg:w-1/2 md:w-2/3 max-md:w-10/12" />
 
@@ -23,3 +23,4 @@
   </app-ui-link>
 </div>
 <app-ui-spinner [show]="!!(isLoading$ | async)" />
+<app-ui-modal-window *ngIf="(modalWindowState$ | async)" (confirm)="handleModalResponse($event)" />

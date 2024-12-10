@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, CanDeactivate, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { QuestionModel } from '../../services/model/question.model';
 import { StoreService } from '../../services/store.service';
@@ -9,9 +9,11 @@ import {
   combineLatest,
   map,
   Observable,
+  of,
   take,
 } from 'rxjs';
 import { QUESTIONS_SIZE } from '../../utils/constants';
+import { CanComponentDeactivate } from '../../guards/can-deactivate.interface';
 
 @Component({
   standalone: true,
@@ -19,36 +21,39 @@ import { QUESTIONS_SIZE } from '../../utils/constants';
   templateUrl: './question.component.html',
   imports: [ UIKitModule, CommonModule ],
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeactivate> {
   @Input() quiz: string = '';
-  
+
   questions$!: Observable<QuestionModel[]>;
   isLoading$!: Observable<boolean>;
   currentIndex$ = new BehaviorSubject<number>(0);
   currentQuestion$!: Observable<QuestionModel>;
   answers: string[] = new Array<string>(QUESTIONS_SIZE);
+  modalWindowState$ = new BehaviorSubject<boolean>(false);
+  modalWindowChoice$ = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private route: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
+    private router: Router,
     private storeService: StoreService,
   ) {}
 
-  nextQuestion(): void {
-    const currentIndex = this.currentIndex$.value;
-    if (currentIndex < QUESTIONS_SIZE - 1) {
-      this.currentIndex$.next(currentIndex + 1);
+  canDeactivate(): Observable<boolean> {
+    this.modalWindowState$.next(true);
+    if (this.modalWindowState$.value && this.modalWindowChoice$.value) {
+      return of(true);
     }
+    return of(false);
   }
 
-  prevQuestion(): void {
-    const currentIndex = this.currentIndex$.value;
-    if (currentIndex > 0) {
-      this.currentIndex$.next(currentIndex - 1);
+  handleModalResponse(confirm: boolean): void {
+    if (confirm) {
+      this.modalWindowChoice$.next(true);
+      this.router.navigateByUrl('main');
+    } else {
+      this.modalWindowChoice$.next(false);
     }
-  }
-
-  getSelectedAnswer(value: string): void {
-    this.answers[this.currentIndex$.value] = value;
+    this.modalWindowState$.next(false);
   }
 
   get options(): Observable<string[]> {
@@ -68,7 +73,7 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit(): void {
     // eslint-disable-next-line dot-notation
-    this.quiz = this.route.snapshot.params['id'];
+    this.quiz = this.activeRoute.snapshot.params['id'];
     this.questions$ = this.storeService.getQuestions();
     this.isLoading$ = this.storeService.getLoadingQuestions();
     this.storeService.loadQuestions(Number.parseInt(this.quiz));
@@ -88,5 +93,23 @@ export class QuestionComponent implements OnInit {
         },
       ),
     );
+  }
+
+  nextQuestion(): void {
+    const currentIndex = this.currentIndex$.value;
+    if (currentIndex < QUESTIONS_SIZE - 1) {
+      this.currentIndex$.next(currentIndex + 1);
+    }
+  }
+
+  prevQuestion(): void {
+    const currentIndex = this.currentIndex$.value;
+    if (currentIndex > 0) {
+      this.currentIndex$.next(currentIndex - 1);
+    }
+  }
+
+  setSelectedAnswer(value: string): void {
+    this.answers[this.currentIndex$.value] = value;
   }
 }

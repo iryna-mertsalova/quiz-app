@@ -28,7 +28,7 @@
     <app-ui-button (click)="handlePrev()" [disabled]="id == 1" type="ghost" iconState="prev">Prev
       question</app-ui-button>
     <app-ui-button (click)="handleNext()" [disabled]="selectedAnswer == null" type="accent" iconState="next">
-      {{id == 10 ? 'Finish' : 'Next question'}}
+      {{id == size ? 'Finish' : 'Next question'}}
     </app-ui-button>
   </div>
 </div>
