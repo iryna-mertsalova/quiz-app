@@ -14,6 +14,8 @@ import {
 } from 'rxjs';
 import { QUESTIONS_SIZE } from '../../utils/constants';
 import { CanComponentDeactivate } from '../../guards/can-deactivate.interface';
+import { ModalWindowModel } from '../../services/model/modal.model';
+import ModalWindowService from '../../services/modal.service';
 
 @Component({
   standalone: true,
@@ -29,16 +31,24 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
   currentIndex$ = new BehaviorSubject<number>(0);
   currentQuestion$!: Observable<QuestionModel>;
   answers: string[] = new Array<string>(QUESTIONS_SIZE);
+  
   modalWindowState$ = new BehaviorSubject<boolean>(false);
   modalWindowChoice$ = new BehaviorSubject<boolean>(false);
+  modalWindowData$ = new BehaviorSubject<ModalWindowModel>({ page: '', title: '', text: '', link: '' });
 
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
     private storeService: StoreService,
+    private modalService: ModalWindowService
   ) {}
 
   canDeactivate(): Observable<boolean> {
+    if (this.currentIndex$.value == QUESTIONS_SIZE) {
+      this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData('Finish'));
+    }
+    const item = event?.target as HTMLElement;
+    this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(item.textContent!));
     this.modalWindowState$.next(true);
     if (this.modalWindowState$.value && this.modalWindowChoice$.value) {
       return of(true);
@@ -49,7 +59,7 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
   handleModalResponse(confirm: boolean): void {
     if (confirm) {
       this.modalWindowChoice$.next(true);
-      this.router.navigateByUrl('main');
+      this.router.navigateByUrl(this.modalWindowData$.value.link);
     } else {
       this.modalWindowChoice$.next(false);
     }
@@ -99,6 +109,8 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
     const currentIndex = this.currentIndex$.value;
     if (currentIndex < QUESTIONS_SIZE - 1) {
       this.currentIndex$.next(currentIndex + 1);
+    } else {
+      this.router.navigateByUrl(this.modalWindowData$.value.link);
     }
   }
 

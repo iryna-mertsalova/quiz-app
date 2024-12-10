@@ -6,15 +6,14 @@
       <div
         class="relative transform overflow-hidden rounded-xl border-accent border-4 bg-bright text-left shadow-xl transition-all lg:max-w-lg max-md:max-w-sm p-10 flex flex-col items-center">
         <div class="flex flex-col items-center text-center w-full *:py-1.5">
-          <app-ui-typography type="H6">Leave quiz</app-ui-typography>
-          <app-ui-typography type="P1">Are you sure you want to exit and cancel the quiz? Your answers will not be
-            saved.</app-ui-typography>
+          <app-ui-typography type="H6">{{data.title}}</app-ui-typography>
+          <app-ui-typography type="P1">{{data.text}}</app-ui-typography>
           <div>
           </div>
         </div>
         <div class="flex max-md:flex-col items-center *:p-0.5">
           <app-ui-button (click)="onCancel()" type="accent">Back to quiz</app-ui-button>
-          <app-ui-button (click)="onConfirm()" class="*:text-accent" type="ghost">Go on main page</app-ui-button>
+          <app-ui-button (click)="onConfirm()" class="*:text-accent" type="ghost">Go to {{data.page}}</app-ui-button>
         </div>
       </div>
     </div>
