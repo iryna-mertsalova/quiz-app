@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ModalWindowModel } from './model/modal.model';
+import { ModalRoutes } from '../utils/modal-routes.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -9,13 +10,13 @@ export class ModalWindowService {
 
   getData(value: string): ModalWindowModel {
     switch (value) {
-      case 'Go to catalog':
-      case 'Quizzes catalog':
-      case 'Go to catalog\n\n':
+      case ModalRoutes.ToCatalog:
+      case ModalRoutes.QuizzesCatalog:
+      case ModalRoutes.ToCatalogWithBreak:
         this.item.page = 'quizzes catalog';
         this.item.link = 'quizzes-catalog';
         break;
-      case '':
+      case ModalRoutes.MainPage:
         this.item.page = 'main page';
         this.item.link = 'main';
         break;
