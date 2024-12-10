@@ -4,7 +4,7 @@ import { ModalWindowModel } from './model/modal.model';
 @Injectable({
   providedIn: 'root',
 })
-export default class ModalWindowService {
+export class ModalWindowService {
   private item: ModalWindowModel = { page: '', text: '', title: '', link: '' };
 
   getData(value: string): ModalWindowModel {

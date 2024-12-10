@@ -15,7 +15,7 @@ import {
 import { QUESTIONS_SIZE } from '../../utils/constants';
 import { CanComponentDeactivate } from '../../guards/can-deactivate.interface';
 import { ModalWindowModel } from '../../services/model/modal.model';
-import ModalWindowService from '../../services/modal.service';
+import { ModalWindowService } from '../../services/modal.service';
 
 @Component({
   standalone: true,
