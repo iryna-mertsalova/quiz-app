@@ -8,25 +8,25 @@ import { ModalRoutes } from '../utils/modal-routes.enum';
 export class ModalWindowService {
   private item: ModalWindowModel = { page: '', text: '', title: '', link: '' };
 
-  getData(value: string): ModalWindowModel {
-    switch (value) {
+  getData(path: string): ModalWindowModel {
+    const updatedPath = path.trim();
+    switch (updatedPath) {
       case ModalRoutes.ToCatalog:
       case ModalRoutes.QuizzesCatalog:
-      case ModalRoutes.ToCatalogWithBreak:
         this.item.page = 'quizzes catalog';
         this.item.link = 'quizzes-catalog';
         break;
-      case ModalRoutes.MainPage:
+      case '':
         this.item.page = 'main page';
         this.item.link = 'main';
         break;
       default:
-        this.item.page = value.toLowerCase();
-        this.item.link = value.toLowerCase();
+        this.item.page = updatedPath.toLowerCase();
+        this.item.link = updatedPath.toLowerCase();
         break;
     }
 
-    if (value.toLowerCase().includes('finish')) {
+    if (updatedPath.toLowerCase().includes('finish')) {
       this.item = {
         link: 'statistics',
         page: 'statistics',

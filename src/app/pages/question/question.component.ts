@@ -16,6 +16,7 @@ import { QUESTIONS_SIZE } from '../../utils/constants';
 import { CanComponentDeactivate } from '../../guards/can-deactivate.interface';
 import { ModalWindowModel } from '../../services/model/modal.model';
 import { ModalWindowService } from '../../services/modal.service';
+import { ModalRoutes } from '../../utils/modal-routes.enum';
 
 @Component({
   standalone: true,
@@ -45,7 +46,7 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
 
   canDeactivate(): Observable<boolean> {
     if (this.currentIndex$.value == QUESTIONS_SIZE) {
-      this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData('Finish'));
+      this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(ModalRoutes.Finish));
     }
     const item = event?.target as HTMLElement;
     this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(item.textContent!));
