@@ -40,14 +40,17 @@ export class QuestionItemComponent {
   }
 
   getFormattedText(): { start: string, middle: string, end: string } {
-    const isShortQuestion = this.item.question.length <= 20;
-    const middleStart = this.item.question.indexOf(' ', this.item.question.indexOf(' ') + 2);
-    const middleEnd = this.item.question.lastIndexOf(isShortQuestion ? '?' : ' ');
-    
+    const question = this.item.question;
+    const split = Math.floor(question.length / 3);
+  
+    const startEnd = question.indexOf(' ', split);
+    const middleStart = startEnd + 1;
+    const middleEnd = question.lastIndexOf(' ', question.length - split);
+  
     return {
-      start: this.item.question.slice(0, middleStart),
-      middle: this.item.question.slice(middleStart, middleEnd),
-      end: this.item.question.slice(middleEnd),
+      start: question.slice(0, startEnd),
+      middle: question.slice(middleStart, middleEnd),
+      end: question.slice(middleEnd),
     };
   }
 }

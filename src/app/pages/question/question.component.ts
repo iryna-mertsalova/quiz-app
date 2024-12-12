@@ -94,16 +94,35 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
       this.currentIndex$,
     ]).pipe(
       map(
-        ([ questions, index ]) => questions?.[index] || {
-          question: '',
-          type: false,
-          difficulty: '',
-          category: '',
-          correct_answer: '',
-          incorrect_answers: [],
-        },
+        ([ questions, index ]) => {
+          const question = questions?.[index] || {
+            question: '',
+            type: false,
+            difficulty: '',
+            category: '',
+            correct_answer: '',
+            incorrect_answers: [],
+          };
+          return this.decodeQuestion(question);
+        }
       ),
     );
+  }
+
+  private decodeText(html: string): string {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    return doc.documentElement.textContent || html;
+  }
+
+  private decodeQuestion(question: QuestionModel): QuestionModel {
+    return {
+      ...question,
+      question: this.decodeText(question.question),
+      category: this.decodeText(question.category),
+      correct_answer: this.decodeText(question.correct_answer),
+      incorrect_answers: question.incorrect_answers.map(this.decodeText),
+    };
   }
 
   nextQuestion(): void {
