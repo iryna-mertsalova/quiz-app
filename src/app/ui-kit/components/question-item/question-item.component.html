@@ -1,0 +1,34 @@
+<div class="bg-success px-7 py-10 rounded-3xl flex flex-col items-center justify-between lg:min-h-[550px]">
+  <div class="w-full flex items-start justify-between">
+    <span class="flex items-center">
+      <app-ui-typography type="H5" highlightText="framed" highlightColor="bg-warning">{{id}}</app-ui-typography>
+      <app-ui-typography type="P1" class="text-bright ml-2">/{{size}}</app-ui-typography>
+    </span>
+
+    <span class="flex">
+      <ng-container *ngFor="let item of images">
+        <svg-icon svgClass="lg:w-20 lg:h-20 max-lg:w-16 max-lg:h-16 object-cover" [src]="item"></svg-icon>
+      </ng-container>
+    </span>
+  </div>
+
+  <span class="w-full flex text-bright items-center justify-start flex-wrap *:mr-2 py-6">
+    <app-ui-typography class="mr-2" type="H4">{{getFormattedText().start}}</app-ui-typography>
+    <app-ui-typography type="H4" highlightText="framed"
+      highlightColor="bg-error">{{getFormattedText().middle}}</app-ui-typography>
+    <app-ui-typography type="H4">{{getFormattedText().end}}</app-ui-typography>
+  </span>
+
+  <form>
+    <app-ui-radio-group [control]="formControl" [options]="options">
+    </app-ui-radio-group>
+  </form>
+
+  <div class="flex items-center justify-between w-full pt-10">
+    <app-ui-button (click)="handlePrev()" [disabled]="id == 1" type="ghost" iconState="prev">Prev
+      question</app-ui-button>
+    <app-ui-button (click)="handleNext()" [disabled]="selectedAnswer == null" type="accent" iconState="next">
+      {{id == size ? 'Finish' : 'Next question'}}
+    </app-ui-button>
+  </div>
+</div>

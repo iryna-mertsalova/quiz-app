@@ -8,10 +8,37 @@ import { LinkComponent } from './components/link/link.component';
 import { RouterModule } from '@angular/router';
 import { CardQuizComponent } from './components/card-quiz/card-quiz.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { QuestionItemComponent } from './components/question-item/question-item.component';
+import { RadioButtonComponent } from './components/radio-group/radio-button/radio-button.component';
+import { RadioGroupComponent } from './components/radio-group/radio-group.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModalWindowComponent } from './components/modal-window/modal-window.component';
 
 @NgModule({
-  declarations: [ ButtonComponent, TypographyComponent, LinkComponent, HeaderComponent, CardQuizComponent, SpinnerComponent ],
-  exports: [ ButtonComponent, TypographyComponent, LinkComponent, HeaderComponent, CardQuizComponent, SpinnerComponent ],
-  imports: [ CommonModule, AngularSvgIconModule.forRoot(), RouterModule ],
+  declarations: [
+    ButtonComponent,
+    TypographyComponent,
+    LinkComponent,
+    HeaderComponent,
+    CardQuizComponent,
+    SpinnerComponent,
+    QuestionItemComponent,
+    RadioButtonComponent,
+    RadioGroupComponent,
+    ModalWindowComponent,
+  ],
+  exports: [
+    ButtonComponent,
+    TypographyComponent,
+    LinkComponent,
+    HeaderComponent,
+    CardQuizComponent,
+    SpinnerComponent,
+    QuestionItemComponent,
+    RadioButtonComponent,
+    RadioGroupComponent,
+    ModalWindowComponent,
+  ],
+  imports: [ CommonModule, AngularSvgIconModule.forRoot(), RouterModule, ReactiveFormsModule ],
 })
 export class UIKitModule {}
