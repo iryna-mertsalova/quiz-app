@@ -28,3 +28,4 @@
   (confirm)="handleModalResponse($event)" 
   [data]="(modalWindowData$ | async)!"
 />
+<app-ui-notification [show]="(isNotification$ | async)!" />

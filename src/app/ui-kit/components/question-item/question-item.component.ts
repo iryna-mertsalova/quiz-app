@@ -28,6 +28,20 @@ export class QuestionItemComponent {
     this.getSelectedAnswer.emit(this.formControl.value);
     return this.formControl.value;
   }
+  
+  get buttonTextLg(): {prev: string, next: string} {
+    return {
+      prev: 'Prev question',
+      next: this.id === this.size ? 'Finish' : 'Next question',
+    };
+  }
+
+  get buttonTextSm(): {prev: string, next: string} {
+    return {
+      prev: 'Prev',
+      next: this.id === this.size ? 'Finish' : 'Next',
+    };
+  }
 
   handlePrev(): void {
     this.prev.emit();

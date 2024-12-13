@@ -29,6 +29,7 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
 
   questions$!: Observable<QuestionModel[]>;
   isLoading$!: Observable<boolean>;
+  isNotification$ = new BehaviorSubject<boolean>(false);
   currentIndex$ = new BehaviorSubject<number>(0);
   currentQuestion$!: Observable<QuestionModel>;
   answers: string[] = new Array<string>(QUESTIONS_SIZE);
@@ -138,6 +139,11 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
     const currentIndex = this.currentIndex$.value;
     if (currentIndex > 0) {
       this.currentIndex$.next(currentIndex - 1);
+    } else {
+      this.isNotification$.next(true);
+      setTimeout(() => {
+        this.isNotification$.next(false);
+      }, 2000); 
     }
   }
 
