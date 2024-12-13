@@ -17,6 +17,7 @@ import { CanComponentDeactivate } from '../../guards/can-deactivate.interface';
 import { ModalWindowModel } from '../../services/model/modal.model';
 import { ModalWindowService } from '../../services/modal.service';
 import { ModalRoutes } from '../../utils/modal-routes.enum';
+import { decodeText } from '../../utils/decode-html';
 
 @Component({
   standalone: true,
@@ -109,19 +110,13 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
     );
   }
 
-  private decodeText(html: string): string {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    return doc.documentElement.textContent || html;
-  }
-
   private decodeQuestion(question: QuestionModel): QuestionModel {
     return {
       ...question,
-      question: this.decodeText(question.question),
-      category: this.decodeText(question.category),
-      correct_answer: this.decodeText(question.correct_answer),
-      incorrect_answers: question.incorrect_answers.map(this.decodeText),
+      question: decodeText(question.question),
+      category: decodeText(question.category),
+      correct_answer: decodeText(question.correct_answer),
+      incorrect_answers: question.incorrect_answers.map(decodeText),
     };
   }
 
