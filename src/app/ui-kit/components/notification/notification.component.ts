@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-ui-notification',
   templateUrl: './notification.component.html',
 })
-export class NotificationComponent { }
+export class NotificationComponent {
+  message: string = 'Please select an option to continue the quiz';
+}
