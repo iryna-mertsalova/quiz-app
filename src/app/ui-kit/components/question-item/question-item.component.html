@@ -21,12 +21,15 @@
   </span>
 
   <form class="max-md:w-full lg:min-w-2/5">
-    <app-ui-radio-group [control]="formControl" [options]="options">
-    </app-ui-radio-group>
+    <app-ui-radio-group 
+      #radioGroup
+      [options]="options" 
+      [setFormControl]="selectedAnswer" 
+      (getSelectedAnswer)="setSelectedAnswer($event)" />
   </form>
 
-  <div class="flex items-center justify-between w-full pt-10">
-    <app-ui-button class="*:bg-accent/15" (click)="handlePrev()" type="ghost" iconState="prev">
+  <div class="flex items-center w-full pt-10" [ngClass]="id == 1 ? 'justify-end' : 'justify-between'">
+    <app-ui-button *ngIf="id != 1" class="*:bg-accent/15" (click)="handlePrev()" type="ghost" iconState="prev">
       <span class="max-sm:hidden sm:block">{{buttonTextLg.prev}}</span>
       <span class="max-sm:block sm:hidden">{{buttonTextSm.prev}}</span>
     </app-ui-button>
@@ -36,4 +39,3 @@
     </app-ui-button>
   </div>
 </div>
-<app-ui-notification class="absolute inset-2" *ngIf="isNotification$.value" />
