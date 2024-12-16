@@ -1,33 +1,41 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { QuestionModel } from '../../../services/model/question.model';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { QUESTIONS_SIZE } from '../../../utils/constants';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-ui-question-item',
   templateUrl: './question-item.component.html',
 })
-export class QuestionItemComponent {  
+export class QuestionItemComponent implements OnInit, OnChanges {
   @Input() item: QuestionModel = { question: '', type: false, difficulty: '', category: '', correct_answer: '', incorrect_answers: [] };
   @Input() options: string[] = new Array<string>(4);
   @Input() id: number = 0;
+  @Input() selectedAnswer: string = '';
+  isNotification$ = new BehaviorSubject<boolean>(false);
   @Output() next = new EventEmitter<void>(); 
   @Output() prev = new EventEmitter<void>(); 
   @Output() getSelectedAnswer = new EventEmitter<string>(); 
+  
+  formControl = new FormControl();
+  size: number = QUESTIONS_SIZE;
   
   images: string[] = [
     'avatars/Profile-1.svg',
     'avatars/Profile-2.svg',
     'avatars/Profile.svg',
-  ];  
+  ]; 
   
-  formControl = new FormControl();
-  size: number = QUESTIONS_SIZE;
-
-  get selectedAnswer(): string | null | undefined {
-    this.getSelectedAnswer.emit(this.formControl.value);
-    return this.formControl.value;
+  ngOnInit(): void {
   }
+  
+  ngOnChanges(): void {
+    this.formControl = new FormControl(this.selectedAnswer, Validators.required);
+    this.formControl.valueChanges.subscribe((value) => {
+      this.getSelectedAnswer.emit(value!);
+    });
+  }  
   
   get buttonTextLg(): {prev: string, next: string} {
     return {
@@ -45,12 +53,18 @@ export class QuestionItemComponent {
 
   handlePrev(): void {
     this.prev.emit();
-    this.formControl.reset();
   }
   
   handleNext(): void {
+    if (this.formControl.invalid) {
+      this.isNotification$.next(true);
+      setTimeout(() => {
+        this.isNotification$.next(false);
+      }, 1500); 
+      this.formControl.markAsTouched();
+      return;
+    }
     this.next.emit();
-    this.formControl.reset();
   }
 
   getFormattedText(): { start: string, middle: string, end: string } {
