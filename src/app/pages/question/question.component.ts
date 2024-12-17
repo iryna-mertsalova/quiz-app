@@ -1,19 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
-import { ActivatedRoute, CanDeactivate, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { QuestionModel } from '../../services/model/question.model';
 import { StoreService } from '../../services/store.service';
 import {
   BehaviorSubject,
   combineLatest,
+  filter,
   map,
   Observable,
   of,
   take,
 } from 'rxjs';
 import { QUESTIONS_SIZE } from '../../utils/constants';
-import { CanComponentDeactivate } from '../../guards/can-deactivate.interface';
 import { ModalWindowModel } from '../../services/model/modal.model';
 import { ModalWindowService } from '../../services/modal.service';
 import { ModalRoutes } from '../../utils/modal-routes.enum';
@@ -25,7 +25,15 @@ import { decodeText } from '../../utils/decode-html';
   templateUrl: './question.component.html',
   imports: [ UIKitModule, CommonModule ],
 })
-export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeactivate> {
+export class QuestionComponent implements OnInit {
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: BeforeUnloadEvent): void {
+    if (!this.modalWindowChoice$.value) {
+      $event.preventDefault();
+      this.nextRoute = ModalRoutes.Refresh; 
+    }
+  }
+
   @Input() quiz: string = '';
 
   questions$!: Observable<QuestionModel[]>;
@@ -38,6 +46,8 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
   modalWindowChoice$ = new BehaviorSubject<boolean>(false);
   modalWindowData$ = new BehaviorSubject<ModalWindowModel>({ page: '', title: '', text: '', link: '' });
 
+  private nextRoute: string = '';
+
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
@@ -46,22 +56,25 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
   ) {}
 
   canDeactivate(): Observable<boolean> {
-    if (this.currentIndex$.value == QUESTIONS_SIZE) {
-      this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(ModalRoutes.Finish));
-    }
-    const item = event?.target as HTMLElement;
-    this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(item.textContent!));
+    this.modalWindowData$.next(this.modalService.getData(this.nextRoute)); 
     this.modalWindowState$.next(true);
-    if (this.modalWindowState$.value && this.modalWindowChoice$.value) {
-      return of(true);
-    }
-    return of(false);
+    
+    return this.modalWindowChoice$.pipe(
+      take(1),
+      map(choice => choice)
+    );
   }
 
   handleModalResponse(confirm: boolean): void {
     if (confirm) {
       this.modalWindowChoice$.next(true);
-      this.router.navigateByUrl(this.modalWindowData$.value.link);
+      if (this.nextRoute === ModalRoutes.Refresh) {
+        window.location.reload(); 
+      } else if (this.nextRoute === ModalRoutes.Finish) {
+        this.router.navigateByUrl(ModalRoutes.Statistics);
+      } else {
+        this.router.navigateByUrl(this.nextRoute); 
+      }
     } else {
       this.modalWindowChoice$.next(false);
     }
@@ -108,6 +121,12 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
         }
       ),
     );
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)
+    ).subscribe((event: NavigationStart) => {
+      this.nextRoute = event.url;
+    });
   }
 
   private decodeQuestion(question: QuestionModel): QuestionModel {
@@ -125,7 +144,7 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
     if (currentIndex < QUESTIONS_SIZE - 1) {
       this.currentIndex$.next(currentIndex + 1);
     } else {
-      this.router.navigateByUrl(this.modalWindowData$.value.link);
+      this.router.navigateByUrl('/finish');
     }
   }
 
