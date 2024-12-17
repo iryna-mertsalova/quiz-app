@@ -17,6 +17,7 @@ import { CanComponentDeactivate } from '../../guards/can-deactivate.interface';
 import { ModalWindowModel } from '../../services/model/modal.model';
 import { ModalWindowService } from '../../services/modal.service';
 import { ModalRoutes } from '../../utils/modal-routes.enum';
+import { decodeText } from '../../utils/decode-html';
 
 @Component({
   standalone: true,
@@ -31,7 +32,7 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
   isLoading$!: Observable<boolean>;
   currentIndex$ = new BehaviorSubject<number>(0);
   currentQuestion$!: Observable<QuestionModel>;
-  answers: string[] = new Array<string>(QUESTIONS_SIZE);
+  answers$ = new BehaviorSubject<string[]>([]);
   
   modalWindowState$ = new BehaviorSubject<boolean>(false);
   modalWindowChoice$ = new BehaviorSubject<boolean>(false);
@@ -94,16 +95,29 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
       this.currentIndex$,
     ]).pipe(
       map(
-        ([ questions, index ]) => questions?.[index] || {
-          question: '',
-          type: false,
-          difficulty: '',
-          category: '',
-          correct_answer: '',
-          incorrect_answers: [],
-        },
+        ([ questions, index ]) => {
+          const question = questions?.[index] || {
+            question: '',
+            type: false,
+            difficulty: '',
+            category: '',
+            correct_answer: '',
+            incorrect_answers: [],
+          };
+          return this.decodeQuestion(question);
+        }
       ),
     );
+  }
+
+  private decodeQuestion(question: QuestionModel): QuestionModel {
+    return {
+      ...question,
+      question: decodeText(question.question),
+      category: decodeText(question.category),
+      correct_answer: decodeText(question.correct_answer),
+      incorrect_answers: question.incorrect_answers.map(decodeText),
+    };
   }
 
   nextQuestion(): void {
@@ -119,10 +133,10 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
     const currentIndex = this.currentIndex$.value;
     if (currentIndex > 0) {
       this.currentIndex$.next(currentIndex - 1);
-    }
+    }    
   }
 
   setSelectedAnswer(value: string): void {
-    this.answers[this.currentIndex$.value] = value;
+    this.answers$.getValue()[this.currentIndex$.value] = value;
   }
 }
