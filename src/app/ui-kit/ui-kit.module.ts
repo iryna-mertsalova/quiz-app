@@ -13,6 +13,7 @@ import { RadioButtonComponent } from './components/radio-group/radio-button/radi
 import { RadioGroupComponent } from './components/radio-group/radio-group.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalWindowComponent } from './components/modal-window/modal-window.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ModalWindowComponent } from './components/modal-window/modal-window.com
     RadioButtonComponent,
     RadioGroupComponent,
     ModalWindowComponent,
+    NotificationComponent,
   ],
   exports: [
     ButtonComponent,
@@ -38,6 +40,7 @@ import { ModalWindowComponent } from './components/modal-window/modal-window.com
     RadioButtonComponent,
     RadioGroupComponent,
     ModalWindowComponent,
+    NotificationComponent,
   ],
   imports: [ CommonModule, AngularSvgIconModule.forRoot(), RouterModule, ReactiveFormsModule ],
 })

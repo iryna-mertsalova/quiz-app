@@ -32,7 +32,7 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
   isLoading$!: Observable<boolean>;
   currentIndex$ = new BehaviorSubject<number>(0);
   currentQuestion$!: Observable<QuestionModel>;
-  answers: string[] = new Array<string>(QUESTIONS_SIZE);
+  answers$ = new BehaviorSubject<string[]>([]);
   
   modalWindowState$ = new BehaviorSubject<boolean>(false);
   modalWindowChoice$ = new BehaviorSubject<boolean>(false);
@@ -133,10 +133,10 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
     const currentIndex = this.currentIndex$.value;
     if (currentIndex > 0) {
       this.currentIndex$.next(currentIndex - 1);
-    }
+    }    
   }
 
   setSelectedAnswer(value: string): void {
-    this.answers[this.currentIndex$.value] = value;
+    this.answers$.getValue()[this.currentIndex$.value] = value;
   }
 }

@@ -15,7 +15,7 @@ export class TypographyComponent {
     if (textTypesClasses[this.type]) {
       this.classType = textTypesClasses[this.type];
     }
-    return `[ ${this.classType} ${this.highlightTextStyle} flex flex-wrap ]`;
+    return `[ ${this.classType} ${this.highlightTextStyle} flex flex-wrap break-words ]`;
   }
 
   get highlightTextStyle(): string {

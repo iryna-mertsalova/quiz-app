@@ -1,19 +1,23 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { QuestionModel } from '../../../services/model/question.model';
-import { FormControl } from '@angular/forms';
 import { QUESTIONS_SIZE } from '../../../utils/constants';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
 
 @Component({
   selector: 'app-ui-question-item',
   templateUrl: './question-item.component.html',
 })
-export class QuestionItemComponent {  
+export class QuestionItemComponent {
   @Input() item: QuestionModel = { question: '', type: false, difficulty: '', category: '', correct_answer: '', incorrect_answers: [] };
   @Input() options: string[] = new Array<string>(4);
   @Input() id: number = 0;
+  @Input() selectedAnswer: string = '';
   @Output() next = new EventEmitter<void>(); 
   @Output() prev = new EventEmitter<void>(); 
   @Output() getSelectedAnswer = new EventEmitter<string>(); 
+  @ViewChild('radioGroup') radioGroup!: RadioGroupComponent;
+  
+  size: number = QUESTIONS_SIZE;
   
   images: string[] = [
     'avatars/Profile-1.svg',
@@ -21,22 +25,32 @@ export class QuestionItemComponent {
     'avatars/Profile.svg',
   ];  
   
-  formControl = new FormControl();
-  size: number = QUESTIONS_SIZE;
+  setSelectedAnswer(value: string): void {
+    this.getSelectedAnswer.emit(value);
+  } 
 
-  get selectedAnswer(): string | null | undefined {
-    this.getSelectedAnswer.emit(this.formControl.value);
-    return this.formControl.value;
+  get buttonTextLg(): {prev: string, next: string} {
+    return {
+      prev: 'Prev question',
+      next: this.id === this.size ? 'Finish' : 'Next question',
+    };
+  }
+
+  get buttonTextSm(): {prev: string, next: string} {
+    return {
+      prev: 'Prev',
+      next: this.id === this.size ? 'Finish' : 'Next',
+    };
   }
 
   handlePrev(): void {
     this.prev.emit();
-    this.formControl.reset();
   }
   
   handleNext(): void {
-    this.next.emit();
-    this.formControl.reset();
+    if (this.radioGroup.isSelectedAnswer()) {
+      this.next.emit();
+    }
   }
 
   getFormattedText(): { start: string, middle: string, end: string } {
