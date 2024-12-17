@@ -26,6 +26,14 @@ import { decodeText } from '../../utils/decode-html';
   imports: [ UIKitModule, CommonModule ],
 })
 export class QuestionComponent implements OnInit {
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: BeforeUnloadEvent): void {
+    if (!this.modalWindowChoice$.value) {
+      $event.preventDefault();
+      this.nextRoute = ModalRoutes.Refresh; 
+    }
+  }
+
   @Input() quiz: string = '';
 
   questions$!: Observable<QuestionModel[]>;
@@ -39,6 +47,7 @@ export class QuestionComponent implements OnInit {
   modalWindowData$ = new BehaviorSubject<ModalWindowModel>({ page: '', title: '', text: '', link: '' });
 
   private nextRoute: string = '';
+
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
@@ -47,40 +56,24 @@ export class QuestionComponent implements OnInit {
   ) {}
 
   canDeactivate(): Observable<boolean> {
-    if (this.currentIndex$.value == QUESTIONS_SIZE) {
-      this.nextRoute = '/finish';
-    }
-    
-    this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(this.nextRoute));
+    this.modalWindowData$.next(this.modalService.getData(this.nextRoute)); 
     this.modalWindowState$.next(true);
-    if (this.modalWindowState$.value && this.modalWindowChoice$.value) {
-      return of(true);
-    }
-    return of(false);
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: BeforeUnloadEvent): void {
-    $event.preventDefault();
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  onKeydownHandler(event: KeyboardEvent): void {
-    if (event.key === 'F5' || (event.ctrlKey && event.key === 'r')) {
-      event.preventDefault();
-      this.nextRoute = ModalRoutes.Refresh;
-      this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(ModalRoutes.Refresh));
-      this.modalWindowState$.next(true);
-    }
+    
+    return this.modalWindowChoice$.pipe(
+      take(1),
+      map(choice => choice)
+    );
   }
 
   handleModalResponse(confirm: boolean): void {
     if (confirm) {
-      if (this.nextRoute == ModalRoutes.Refresh) {
-        window.location.reload();
+      this.modalWindowChoice$.next(true);
+      if (this.nextRoute === ModalRoutes.Refresh) {
+        window.location.reload(); 
+      } else if (this.nextRoute === ModalRoutes.Finish) {
+        this.router.navigateByUrl(ModalRoutes.Statistics);
       } else {
-        this.modalWindowChoice$.next(true);
-        this.router.navigateByUrl(this.modalWindowData$.value.link);
+        this.router.navigateByUrl(this.nextRoute); 
       }
     } else {
       this.modalWindowChoice$.next(false);
