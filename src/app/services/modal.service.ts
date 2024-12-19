@@ -1,51 +1,75 @@
 import { Injectable } from '@angular/core';
 import { ModalWindowModel } from './model/modal.model';
 import { ModalRoutes } from '../utils/modal-routes.enum';
+import { DEFAULT_MODAL_DATA, MODAL_DATA } from '../utils/modal-data.constants';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
+export interface ModalWindowState {
+  visibility: boolean;
+  choice: boolean;
+  data: ModalWindowModel;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalWindowService {
-  private item: ModalWindowModel = { page: '', text: '', title: '', link: '' };
+  modalState$ = new BehaviorSubject<ModalWindowState>({
+    visibility: false,
+    choice: false,
+    data: DEFAULT_MODAL_DATA,
+  });
 
-  getData(path: string): ModalWindowModel {
+  get modalWindowState$(): boolean {
+    return this.modalState$.getValue().visibility;
+  }
+
+  get modalWindowData$(): Observable<ModalWindowModel> {
+    return this.modalState$.asObservable().pipe(map(state => state.data));
+  }
+
+  constructor(private router: Router) {}
+
+  setModalData(path: string): ModalWindowModel {
     const updatedPath = path.trim();
-    switch (updatedPath) {
-      case ModalRoutes.QuizzesCatalog:
-        this.item.page = 'quizzes catalog';
-        this.item.link = 'quizzes-catalog';
-        break;
-      case ModalRoutes.Statistics:
-        this.item.page = 'statistics';
-        this.item.link = 'statistics';
-        break;
-      case ModalRoutes.Refresh: 
-        this.item.page = 'new quiz session';
-        break;
-      case '':
-        this.item.page = 'main page';
-        this.item.link = 'main';
-        break;
-      default:
-        this.item.page = updatedPath.toLowerCase();
-        this.item.link = updatedPath.toLowerCase();
-        break;
-    }
-      
-    if (updatedPath === ModalRoutes.Finish) {
-      this.item = {
-        link: 'statistics',
-        page: 'statistics',
-        title: 'Finish quiz',
-        text: 'To get your quiz result, please, confirm this action and go to the page with the conclusion.',
-      };
-    } else if (updatedPath == ModalRoutes.Refresh) {
-      this.item.title = 'Refresh page';
-      this.item.text = 'Do you want to refresh your quiz?\n Your current result will be lost'; 
+    return MODAL_DATA[updatedPath] || DEFAULT_MODAL_DATA;
+  }
+
+  setModalState(path: string): void {
+    const modalData = this.setModalData(path);
+    this.modalState$.next({
+      visibility: true,
+      choice: false,
+      data: modalData,
+    });
+  }
+
+  handleModalAction(confirm: boolean): void {
+    if (confirm) {
+      this.modalState$.next({
+        ...this.modalState$.getValue(),
+        choice: true,
+      });
+
+      const nextRoute = this.modalState$.getValue().data.link;
+      if (nextRoute === ModalRoutes.Refresh) {
+        window.location.reload();
+      } else if (nextRoute === ModalRoutes.Finish) {
+        this.router.navigateByUrl(ModalRoutes.Statistics);
+      } else {
+        this.router.navigateByUrl(nextRoute);
+      }
     } else {
-      this.item.title = 'Leave quiz';
-      this.item.text = 'Are you sure you want to exit and cancel the quiz? Your answers will not be saved.';
+      this.closeModal();
     }
-    return this.item;
+  }
+
+  closeModal(): void {
+    this.modalState$.next({
+      visibility: false,
+      choice: false,
+      data: DEFAULT_MODAL_DATA,
+    });
   }
 }
