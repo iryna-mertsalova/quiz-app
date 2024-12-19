@@ -9,5 +9,5 @@ export const textTypesClasses: { [key: string]: string } = {
   H6: 'text-2xl max-lg:text-xl leading-7 font-semibold',
   P1: 'text-base leading-6 font-normal',
   P2: 'text-sm leading-5 font-normal',
-  Label: 'text-base leading-4 font-medium',
+  Label: 'text-xs leading-4 font-medium',
 };
