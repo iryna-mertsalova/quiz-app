@@ -13,6 +13,9 @@ import { RadioButtonComponent } from './components/radio-group/radio-button/radi
 import { RadioGroupComponent } from './components/radio-group/radio-group.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalWindowComponent } from './components/modal-window/modal-window.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { ChartRatingComponent } from './components/chart-rating/chart-rating.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,8 @@ import { ModalWindowComponent } from './components/modal-window/modal-window.com
     RadioButtonComponent,
     RadioGroupComponent,
     ModalWindowComponent,
+    NotificationComponent,
+    ChartRatingComponent,
   ],
   exports: [
     ButtonComponent,
@@ -38,7 +43,15 @@ import { ModalWindowComponent } from './components/modal-window/modal-window.com
     RadioButtonComponent,
     RadioGroupComponent,
     ModalWindowComponent,
+    NotificationComponent,
+    ChartRatingComponent,
   ],
-  imports: [ CommonModule, AngularSvgIconModule.forRoot(), RouterModule, ReactiveFormsModule ],
+  imports: [
+    CommonModule,
+    AngularSvgIconModule.forRoot(),
+    RouterModule,
+    ReactiveFormsModule,
+    NgApexchartsModule,
+  ],
 })
 export class UIKitModule {}
