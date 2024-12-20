@@ -5,7 +5,7 @@
     <app-ui-typography type='H2' highlightText="ellipse">.</app-ui-typography>
   </div>
   <app-ui-typography type="P1" class="text-bright lg:w-3/12 max-md:w-9/12 pb-5 text-center flex justify-center">Can you decipher these emoji clues to answer these music-related questions?</app-ui-typography>
-  <app-ui-link class="mb-4 lg:hidden" link="/quizzes-catalog">
+  <app-ui-link class="lg:absolute lg:left-3 mb-4" link="/quizzes-catalog">
     <app-ui-button size="md" type="accent" iconState="prev">Go to catalog</app-ui-button>
   </app-ui-link>
   
@@ -19,9 +19,6 @@
     [selectedAnswer]="answers$.getValue()[currentIndex$.value]"
     class="lg:w-1/2 md:w-2/3 max-md:w-10/12" />
 
-  <app-ui-link class="lg:absolute max-lg:hidden left-3" link="/quizzes-catalog">
-    <app-ui-button size="md" type="accent" iconState="prev">Go to catalog</app-ui-button>
-  </app-ui-link>
 </div>
 <app-ui-spinner [show]="!!(isLoading$ | async)" />
 <app-ui-modal-window 
