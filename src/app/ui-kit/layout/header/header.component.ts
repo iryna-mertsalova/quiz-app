@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   menuItems = [
     { link: 'quizzes-catalog', label: 'Quizzes catalog' },
-    { link: 'quiz', label: 'Quiz' },
+    { link: 'quiz/0', label: 'Quiz' },
     { link: 'statistics', label: 'Statistics' },
   ];
 

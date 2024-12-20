@@ -1,22 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
-import { ActivatedRoute, CanDeactivate, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { QuestionModel } from '../../services/model/question.model';
 import { StoreService } from '../../services/store.service';
 import {
   BehaviorSubject,
   combineLatest,
+  filter,
   map,
   Observable,
   of,
   take,
 } from 'rxjs';
 import { QUESTIONS_SIZE } from '../../utils/constants';
-import { CanComponentDeactivate } from '../../guards/can-deactivate.interface';
 import { ModalWindowModel } from '../../services/model/modal.model';
 import { ModalWindowService } from '../../services/modal.service';
 import { ModalRoutes } from '../../utils/modal-routes.enum';
+import { decodeQuestion } from '../../utils/decode-html';
 
 @Component({
   standalone: true,
@@ -24,54 +25,35 @@ import { ModalRoutes } from '../../utils/modal-routes.enum';
   templateUrl: './question.component.html',
   imports: [ UIKitModule, CommonModule ],
 })
-export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeactivate> {
+export class QuestionComponent implements OnInit {
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: BeforeUnloadEvent): void {
+    if (!(this.modalService.modalState$.getValue()?.choice)) {
+      $event.preventDefault();
+      this.nextRoute = ModalRoutes.Refresh;
+    }
+  }
+
   @Input() quiz: string = '';
+  private nextRoute: string = '';
 
   questions$!: Observable<QuestionModel[]>;
   isLoading$!: Observable<boolean>;
   currentIndex$ = new BehaviorSubject<number>(0);
   currentQuestion$!: Observable<QuestionModel>;
-  answers: string[] = new Array<string>(QUESTIONS_SIZE);
-  
-  modalWindowState$ = new BehaviorSubject<boolean>(false);
-  modalWindowChoice$ = new BehaviorSubject<boolean>(false);
-  modalWindowData$ = new BehaviorSubject<ModalWindowModel>({ page: '', title: '', text: '', link: '' });
+  answers$ = new BehaviorSubject<string[]>([]);
 
-  constructor(
-    private activeRoute: ActivatedRoute,
-    private router: Router,
-    private storeService: StoreService,
-    private modalService: ModalWindowService
-  ) {}
-
-  canDeactivate(): Observable<boolean> {
-    if (this.currentIndex$.value == QUESTIONS_SIZE) {
-      this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(ModalRoutes.Finish));
-    }
-    const item = event?.target as HTMLElement;
-    this.modalWindowData$ = new BehaviorSubject<ModalWindowModel>(this.modalService.getData(item.textContent!));
-    this.modalWindowState$.next(true);
-    if (this.modalWindowState$.value && this.modalWindowChoice$.value) {
-      return of(true);
-    }
-    return of(false);
-  }
-
-  handleModalResponse(confirm: boolean): void {
-    if (confirm) {
-      this.modalWindowChoice$.next(true);
-      this.router.navigateByUrl(this.modalWindowData$.value.link);
-    } else {
-      this.modalWindowChoice$.next(false);
-    }
-    this.modalWindowState$.next(false);
-  }
+  modalWindowState$!: Observable<boolean>; 
+  modalWindowData$!: Observable<ModalWindowModel>;
 
   get options(): Observable<string[]> {
     return this.currentQuestion$.pipe(
       take(1),
       map((item) => {
-        return [ ...item.incorrect_answers, item.correct_answer ]
+        return [
+          ...item.incorrect_answers,
+          item.correct_answer,
+        ]
         .sort()
         .reverse();
       }),
@@ -82,6 +64,28 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
     return this.currentIndex$.value + 1;
   }
 
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private storeService: StoreService,
+    private modalService: ModalWindowService
+  ) {}
+
+  canDeactivate(): Observable<boolean> {
+    if (this.answers$.getValue()[0] === undefined) {
+      return of(true);
+    }
+    if (!(this.modalService.modalState$.getValue().choice)) {
+      this.modalService.setModalState(this.nextRoute);
+      return this.modalService.modalState$.pipe(
+        take(1),
+        map(state => state.choice)
+      );
+    }
+    this.modalService.closeModal();
+    return of(true);
+  }
+
   ngOnInit(): void {
     // eslint-disable-next-line dot-notation
     this.quiz = this.activeRoute.snapshot.params['id'];
@@ -89,40 +93,66 @@ export class QuestionComponent implements OnInit, CanDeactivate<CanComponentDeac
     this.isLoading$ = this.storeService.getLoadingQuestions();
     this.storeService.loadQuestions(Number.parseInt(this.quiz));
 
+    this.modalWindowData$ = this.modalService.modalState$.pipe(
+      map(state => state.data)
+    );
+
+    this.modalWindowState$ = this.modalService.modalState$.pipe(
+      map(state => state.visibility)
+    );
+
     this.currentQuestion$ = combineLatest([
       this.questions$,
       this.currentIndex$,
     ]).pipe(
       map(
-        ([ questions, index ]) => questions?.[index] || {
-          question: '',
-          type: false,
-          difficulty: '',
-          category: '',
-          correct_answer: '',
-          incorrect_answers: [],
-        },
+        ([ questions, index ]) => {
+          const question = questions?.[index] || {
+            question: '',
+            type: false,
+            difficulty: '',
+            category: '',
+            correct_answer: '',
+            incorrect_answers: [],
+          };
+          return decodeQuestion(question);
+        }
       ),
     );
+
+    this.handleNavigation();
   }
 
+  handleModalResponse(confirm: boolean): void {
+    this.modalService.handleModalAction(confirm);
+  }
+  
   nextQuestion(): void {
     const currentIndex = this.currentIndex$.value;
     if (currentIndex < QUESTIONS_SIZE - 1) {
       this.currentIndex$.next(currentIndex + 1);
     } else {
-      this.router.navigateByUrl(this.modalWindowData$.value.link);
+      this.router.navigateByUrl(ModalRoutes.Finish);
     }
   }
-
+  
   prevQuestion(): void {
     const currentIndex = this.currentIndex$.value;
     if (currentIndex > 0) {
       this.currentIndex$.next(currentIndex - 1);
     }
   }
-
+  
   setSelectedAnswer(value: string): void {
-    this.answers[this.currentIndex$.value] = value;
+    this.answers$.getValue()[this.currentIndex$.value] = value;
+  }
+
+  private handleNavigation(): void {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart),
+      map((event: NavigationStart) => event.url)
+    ).subscribe((url) => {
+      this.nextRoute = url;
+    });
   }
 }
