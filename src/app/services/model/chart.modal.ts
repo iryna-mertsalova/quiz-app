@@ -1,11 +1,11 @@
-interface AdditionalData {
+interface ChartAdditionalData {
     className: string;
     value: string;
 }
 
 export interface ChartModel {
     count: number;
-    color: AdditionalData;
+    color: ChartAdditionalData;
     description: string;
-    additionalData: AdditionalData[];
+    additionalData: ChartAdditionalData[];
 }
