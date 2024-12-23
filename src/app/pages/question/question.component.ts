@@ -130,8 +130,8 @@ export class QuestionComponent implements OnInit {
   }
 
   handleModalResponse(confirm: boolean): void {
-    const time: number = this.timeService.finishTest();
     if (confirm === true && this.nextRoute === ModalRoutes.Finish) {
+      const time: number = this.timeService.finishTest();
       const result: QuizResultModel = {
         seconds: time,
         formattedTime: this.timeService.formatTime(time),
