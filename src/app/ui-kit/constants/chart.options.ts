@@ -27,14 +27,14 @@ function getLegendChart(item: ChartModel): string {
   const descriptionTextType: TextTypes = 'Label';
 
   const additionalHtml = item.additionalData
-  .map(data => `<p class="px-1 ${data.className} ${textTypesClasses[additionalInfoType]}">${data.value}</p>`)
+  .map(data => `<p class="pr-1.5 px-0.5 ${data.className} ${textTypesClasses[additionalInfoType]}">${data.value}</p>`)
   .join('');
 
   return `
       <div class='w-full flex lg:py-3 max-lg:py-1.5'>
         <span class='block bg-${item.color.className} w-10 h-10 rounded mx-2'></span>
           <span>
-            <span class='flex items-end'>
+            <span class='flex items-end max-md:flex-wrap '>
             <p class='${textTypesClasses[countTextType]} text-primary'>${item.count}</p>
             <span class='flex items-end'>${additionalHtml}</span>
           </span>        

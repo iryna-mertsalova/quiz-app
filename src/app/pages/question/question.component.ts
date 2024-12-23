@@ -18,6 +18,9 @@ import { ModalWindowModel } from '../../services/model/modal.model';
 import { ModalWindowService } from '../../services/modal.service';
 import { ModalRoutes } from '../../utils/modal-routes.enum';
 import { decodeQuestion } from '../../utils/decode-html';
+import { TimeService } from '../../services/time.service';
+import { StatisticService } from '../../services/statistics.service';
+import { QuizResultModel } from '../../services/model/quiz-result.model';
 
 @Component({
   standalone: true,
@@ -68,7 +71,9 @@ export class QuestionComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private router: Router,
     private storeService: StoreService,
-    private modalService: ModalWindowService
+    private modalService: ModalWindowService, 
+    private timeService: TimeService,
+    private statisticService: StatisticService,
   ) {}
 
   canDeactivate(): Observable<boolean> {
@@ -76,7 +81,7 @@ export class QuestionComponent implements OnInit {
       return of(true);
     }
     if (!(this.modalService.modalState$.getValue().choice)) {
-      this.modalService.setModalState(this.nextRoute);
+      this.modalService.setModalState(this.nextRoute);      
       return this.modalService.modalState$.pipe(
         take(1),
         map(state => state.choice)
@@ -120,10 +125,21 @@ export class QuestionComponent implements OnInit {
       ),
     );
 
+    this.timeService.startTest();
     this.handleNavigation();
   }
 
   handleModalResponse(confirm: boolean): void {
+    const time: number = this.timeService.finishTest();
+    if (confirm === true && this.nextRoute === ModalRoutes.Finish) {
+      const result: QuizResultModel = {
+        seconds: time,
+        formattedTime: this.timeService.formatTime(time),
+        score: this.statisticService.initScore(this.questions$, this.answers$.getValue()),
+        resultText: 'Good try! Why not have another go? You might get a bigger score!',
+      };
+      this.statisticService.initResult(result);
+    }
     this.modalService.handleModalAction(confirm);
   }
   

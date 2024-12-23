@@ -33,6 +33,12 @@ export const MODAL_DATA: Record<string, ModalWindowModel> = {
     title: 'Finish quiz',
     text: 'To get your quiz result, please, confirm this action and go to the page with the conclusion.',
   },
+  [ModalRoutes.Quiz]: {
+    page: 'quiz',
+    link: '/quiz/0',
+    title: DEFAULT_MODAL_DATA.title,
+    text: DEFAULT_MODAL_DATA.text,
+  },
   '': {
     ...DEFAULT_MODAL_DATA,
   },
