@@ -4,6 +4,7 @@ import { QUESTIONS_SIZE } from '../../utils/constants';
 import { ChartModel } from '../../services/model/chart.modal';
 import { StatisticService } from '../../services/statistics.service';
 import { QuizResultModel } from '../../services/model/quiz-result.model';
+import { chartDataText } from '../../test-data/chart.data';
 
 @Component({
   standalone: true,
@@ -12,14 +13,15 @@ import { QuizResultModel } from '../../services/model/quiz-result.model';
   imports: [UIKitModule],
 })
 export class StatisticsComponent implements OnInit {
-  chartData!: ChartModel[];
+  chartData!: ChartModel;
   quizResult!: QuizResultModel | null;
   size: number = QUESTIONS_SIZE;
+  texts: string[] = chartDataText;
   
   constructor(private statisticService: StatisticService) {}
 
   ngOnInit(): void {
-    this.chartData = this.statisticService.getStatisticData;
-    this.quizResult = this.statisticService.getQuizResult;
+    this.chartData = this.statisticService.getStatisticData();
+    this.quizResult = this.statisticService.getQuizResult();
   }
 }

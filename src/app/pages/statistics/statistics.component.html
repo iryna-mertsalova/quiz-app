@@ -21,6 +21,33 @@
   <div
     class="bg-bright m-5 p-10 rounded-3xl flex flex-col items-center h-auto justify-between xl:w-1/2 max-xl:w-1/2 lg:w-2/3 max-lg:w-3/5 md:w-3/4 max-md:w-3/4 max-sm:w-10/12 ">
     <app-ui-typography type="H4">My statistics</app-ui-typography>
-    <app-ui-chart-rating class="w-full" [data]="chartData" />
+    <div class="flex max-lg:flex-col items-center justify-around w-full *:m-2">
+      <app-ui-chart-rating [data]="chartData" />
+      
+      <div>
+        <app-statistic-card 
+          [value]="chartData.quizzesCount" 
+          [label]="texts[0]" 
+          iconClass="bg-warning">
+        </app-statistic-card>
+    
+        <app-statistic-card 
+          [value]="chartData.questionsCount.total" 
+          [label]="texts[1]" 
+          iconClass="bg-secondary">
+          <span class='flex items-end *:p-0.5'>
+            <app-ui-typography type="P2" class="text-success">{{chartData.questionsCount.right}} right</app-ui-typography>
+            <app-ui-typography type="P2" class="text-error">{{chartData.questionsCount.wrong}} wrong</app-ui-typography>
+          </span>
+        </app-statistic-card>
+    
+        <app-statistic-card 
+          [value]="chartData.time" 
+          [label]="texts[2]" 
+          iconClass="bg-accent">min</app-statistic-card>
+      </div>
+
+    </div>
   </div>
+
 </div>

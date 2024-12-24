@@ -6,8 +6,6 @@ import {
   ApexResponsive,
   ApexChart,
 } from 'ng-apexcharts';
-import { ChartModel } from '../../services/model/chart.modal';
-import { TextTypes, textTypesClasses } from './text-types';
 
 export type ChartOptions = {
   series: number[];
@@ -21,27 +19,9 @@ export type ChartOptions = {
   states: ApexStates;
 };
 
-function getLegendChart(item: ChartModel): string {
-  const countTextType: TextTypes = 'P1';
-  const additionalInfoType: TextTypes = 'P2';
-  const descriptionTextType: TextTypes = 'Label';
-
-  const additionalHtml = item.additionalData
-  .map(data => `<p class="pr-1.5 px-0.5 ${data.className} ${textTypesClasses[additionalInfoType]}">${data.value}</p>`)
-  .join('');
-
-  return `
-      <div class='w-full flex lg:py-3 max-lg:py-1.5'>
-        <span class='block bg-${item.color.className} w-10 h-10 rounded mx-2'></span>
-          <span>
-            <span class='flex items-end max-md:flex-wrap '>
-            <p class='${textTypesClasses[countTextType]} text-primary'>${item.count}</p>
-            <span class='flex items-end'>${additionalHtml}</span>
-          </span>        
-          <p class='${textTypesClasses[descriptionTextType]} text-secondary'>${item.description}</p>
-        </span>
-      </div>
-    `;
+export interface QuestionTypeModel {
+  name: string;
+  value: number;
 }
 
 const pieOptions = {
@@ -68,9 +48,9 @@ const responsiveOptions = [
   },
 ];
 
-export function createChartOptions(data: ChartModel[]): Partial<ChartOptions> {
+export function createChartOptions(data: QuestionTypeModel[]): Partial<ChartOptions> {
   return {
-    series: data.map(item => item.count)!,
+    series: data.map(item => item.value)!,
     chart: {
       type: 'donut',
       width: '100%',
@@ -79,16 +59,12 @@ export function createChartOptions(data: ChartModel[]): Partial<ChartOptions> {
     dataLabels: {
       enabled: false,
     },
-    colors: data.map(item => item.color.value)!,
+    colors: [ '#63C995', '#E23D69' ],
     legend: {
-      markers: {
-        customHTML: () => '',
-      },
-      show: true,
-      formatter: (seriesName, opts) => getLegendChart(data[opts.seriesIndex]),
+      show: false,
     },
     tooltip: {
-      enabled: false,
+      enabled: false, 
     },
     states: {
       hover: {
