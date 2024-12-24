@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
 import { QUESTIONS_SIZE } from '../../utils/constants';
 import { ChartModel } from '../../services/model/chart.modal';
-import { CHART_DATA } from '../../test-data/chart.data';
+import { StatisticService } from '../../services/statistics.service';
+import { QuizResultModel } from '../../services/model/quiz-result.model';
+import { chartDataText } from '../../test-data/chart.data';
 
 @Component({
   standalone: true,
@@ -10,10 +12,16 @@ import { CHART_DATA } from '../../test-data/chart.data';
   templateUrl: './statistics.component.html',
   imports: [UIKitModule],
 })
-export class StatisticsComponent {
-  chartData: ChartModel[] = CHART_DATA;
+export class StatisticsComponent implements OnInit {
+  chartData!: ChartModel;
+  quizResult!: QuizResultModel | null;
   size: number = QUESTIONS_SIZE;
-  testMark: number = 8;
-  testTime: string = '24 min';
-  testText: string = 'Good try! Why not have another go? You might get a bigger score!';
+  texts: string[] = chartDataText;
+  
+  constructor(private statisticService: StatisticService) {}
+
+  ngOnInit(): void {
+    this.chartData = this.statisticService.getStatisticData();
+    this.quizResult = this.statisticService.getQuizResult();
+  }
 }

@@ -1,8 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
-
+import { ChartOptions, createChartOptions, QuestionTypeModel } from '../../constants/chart.options';
 import { ChartModel } from '../../../services/model/chart.modal';
-import { ChartOptions, createChartOptions } from '../../constants/chart.options';
 
 @Component({
   selector: 'app-ui-chart-rating',
@@ -10,11 +9,15 @@ import { ChartOptions, createChartOptions } from '../../constants/chart.options'
 })
 export class ChartRatingComponent implements OnInit {
   @ViewChild('chart') chart!: ChartComponent;
-  @Input() data: ChartModel[] = [];
+  @Input() data!: ChartModel;
   
   chartOptions!: Partial<ChartOptions>;
 
   ngOnInit(): void {
-    this.chartOptions = createChartOptions(this.data);
+    const arr: QuestionTypeModel[] = [
+      { name: 'right', value: this.data.questionsCount.right },
+      { name: 'wrong', value: this.data.questionsCount.wrong },
+    ];
+    this.chartOptions = createChartOptions(arr);
   }
 }

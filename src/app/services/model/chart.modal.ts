@@ -1,11 +1,9 @@
-interface ChartAdditionalData {
-    className: string;
-    value: string;
-}
-
 export interface ChartModel {
-    count: number;
-    color: ChartAdditionalData;
-    description: string;
-    additionalData: ChartAdditionalData[];
+    quizzesCount: number;
+    questionsCount: {
+        total: number;
+        right: number;
+        wrong: number;
+    }; 
+    time: number;
 }

@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModalWindowComponent } from './components/modal-window/modal-window.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ChartRatingComponent } from './components/chart-rating/chart-rating.component';
+import { StatisticCardComponent } from './components/statistic-card/statistic-card.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ModalWindowComponent,
     NotificationComponent,
     ChartRatingComponent,
+    StatisticCardComponent,
   ],
   exports: [
     ButtonComponent,
@@ -45,6 +47,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ModalWindowComponent,
     NotificationComponent,
     ChartRatingComponent,
+    StatisticCardComponent,
   ],
   imports: [
     CommonModule,
