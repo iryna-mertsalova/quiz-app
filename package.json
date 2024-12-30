@@ -7,7 +7,7 @@
     "build": "ng build",
     "build:prod": "ng build --configuration=production --base-href=/quiz-app/",
     "watch": "ng build --watch --configuration development",
-    "test": "jest",
+    "test": "jest --verbose",
     "prepare": "husky",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint .",
@@ -46,10 +46,6 @@
   "lint-staged": {
     "*.ts": "eslint --fix",
     "*.scss": "stylelint --fix"
-  },
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": [ "./src/setup-jest.ts" ]
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.4",
