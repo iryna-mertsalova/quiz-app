@@ -1,23 +1,22 @@
 module.exports = {
-    preset: 'jest-preset-angular', // Використовуємо Jest-пресет для Angular
-    setupFilesAfterEnv: [ "./src/setup-jest.ts" ], // Файл для налаштування оточення тестів
+    preset: 'jest-preset-angular', 
+    setupFilesAfterEnv: [ "./src/setup-jest.ts" ], 
     globals: {
         'ts-jest': {
-            tsconfig: '<rootDir>/tsconfig.spec.json', // Специфічний TypeScript конфіг для тестів
-            stringifyContentPathRegex: '\\.html$', // Для роботи з HTML-файлами в тестах
+            tsconfig: '<rootDir>/tsconfig.spec.json', 
+            stringifyContentPathRegex: '\\.html$',
         },
     },
     transform: {
-        '^.+\\.(ts|js|html)$': 'jest-preset-angular', // Трансформація файлів
+        '^.+\\.(ts|js|html)$': 'jest-preset-angular', 
     },
-    testEnvironment: 'jsdom', // Оточення браузера
-    testMatch: ['<rootDir>/src/**/*.spec.ts'], // Шлях до файлів тестів
-    moduleFileExtensions: ['ts', 'html', 'js', 'json'], // Підтримувані розширення
+    testEnvironment: 'jsdom', 
+    testMatch: ['<rootDir>/src/**/*.spec.ts'], 
+    moduleFileExtensions: ['ts', 'html', 'js', 'json'], 
     moduleNameMapper: {
-        // Додайте мапінги для імпортів, якщо необхідно
         '^@/(.*)$': '<rootDir>/src/$1',
     },
-    coverageDirectory: '<rootDir>/coverage/', // Директорія для звітів покриття
+    coverageDirectory: '<rootDir>/coverage/', 
     collectCoverageFrom: [
         '<rootDir>/src/**/*.ts',
         '!<rootDir>/src/main.ts',
@@ -25,7 +24,7 @@ module.exports = {
         '!<rootDir>/src/**/index.ts',
         '!<rootDir>/src/environments/**',
     ],
-    coverageReporters: ['html', 'lcov', 'text-summary'], // Формати звітів покриття
-    verbose: true, // Вивід деталей тестів
+    coverageReporters: ['html', 'lcov', 'text-summary'], 
+    verbose: true, 
     silent: false,
 };
