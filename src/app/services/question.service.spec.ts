@@ -38,8 +38,13 @@ describe('QuestionService', () => {
       },
     });
 
-    const req = controller.expectOne(api);
+    const req = controller.expectOne(request => request.url.includes(API_ENDPOINTS.QUESTION_URL));
     expect(req.request.method).toBe('GET');
+  
+    const url = req.request.urlWithParams;  
+    expect(url).toContain(`category=${categoryId}`);
+    expect(url).toContain('type=multiple');
+  
     req.flush(response);
   });
 
@@ -55,7 +60,7 @@ describe('QuestionService', () => {
 
     const req = controller.expectOne(api);
     expect(req.request.method).toBe('GET');
-    req.flush([]);
+    req.flush({ result: [] });
   });
 
   it('should throw an error if API call fails', () => {
