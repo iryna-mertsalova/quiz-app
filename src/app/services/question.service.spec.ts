@@ -40,7 +40,7 @@ describe('QuestionService', () => {
 
     const req = controller.expectOne(request => request.url.includes(API_ENDPOINTS.QUESTION_URL));
     expect(req.request.method).toBe('GET');
-  
+    expect(req.cancelled).toBeFalsy();
     const url = req.request.urlWithParams;  
     expect(url).toContain(`category=${categoryId}`);
     expect(url).toContain('type=multiple');
