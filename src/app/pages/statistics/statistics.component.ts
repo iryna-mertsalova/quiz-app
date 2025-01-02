@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
+import { QUESTIONS_SIZE } from '../../utils/constants';
+import { ChartModel } from '../../services/model/chart.modal';
+import { StatisticService } from '../../services/statistics.service';
+import { QuizResultModel } from '../../services/model/quiz-result.model';
+import { chartDataText } from '../../test-data/chart.data';
 
 @Component({
   standalone: true,
@@ -7,4 +12,16 @@ import { UIKitModule } from '../../ui-kit/ui-kit.module';
   templateUrl: './statistics.component.html',
   imports: [UIKitModule],
 })
-export class StatisticsComponent {}
+export class StatisticsComponent implements OnInit {
+  chartData!: ChartModel;
+  quizResult!: QuizResultModel | null;
+  size: number = QUESTIONS_SIZE;
+  texts: string[] = chartDataText;
+  
+  constructor(private statisticService: StatisticService) {}
+
+  ngOnInit(): void {
+    this.chartData = this.statisticService.getStatisticData();
+    this.quizResult = this.statisticService.getQuizResult();
+  }
+}

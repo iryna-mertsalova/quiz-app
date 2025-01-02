@@ -1,5 +1,7 @@
 export enum ModalRoutes {
-    ToCatalog = 'Go to catalog',
-    QuizzesCatalog = 'Quizzes catalog',
-    Finish = 'Finish',   
+    Statistics = '/statistics',
+    QuizzesCatalog = '/quizzes-catalog',
+    Finish = '/finish',
+    Quiz = '/quiz/0',   
+    Refresh = 'refresh'
 }

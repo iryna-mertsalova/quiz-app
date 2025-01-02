@@ -4,3 +4,10 @@ export const API_ENDPOINTS = {
 };
 
 export const QUESTIONS_SIZE: number = 10;
+
+export const STORAGE_KEYS = {
+  CHART: 'chart',
+  QUIZ_RESULT: 'quiz-result',
+};
+
+export const SECONDS: number = 60;
