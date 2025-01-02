@@ -5,11 +5,10 @@ import {
 } from '@angular/common/http/testing';
 import { CategoryService } from './category.service';
 import { API_ENDPOINTS, QUESTIONS_SIZE } from '../utils/constants';
-import { CategoryModel } from './model/category.model';
 
 describe('CategoryService', () => {
   let service: CategoryService;
-  let httpMock: HttpTestingController;
+  let controller: HttpTestingController;
 
   const mockResponse = {
     trivia_categories: Array.from({ length: QUESTIONS_SIZE }, (_, i) => ({
@@ -27,11 +26,11 @@ describe('CategoryService', () => {
     });
 
     service = TestBed.inject(CategoryService);
-    httpMock = TestBed.inject(HttpTestingController);
+    controller = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    httpMock.verify();
+    controller.verify();
   });
 
   it('should call API and return the correct category list', () => {
@@ -45,8 +44,9 @@ describe('CategoryService', () => {
       },
     });
 
-    const req = httpMock.expectOne(API_ENDPOINTS.CATEGORY_URL);
+    const req = controller.expectOne(API_ENDPOINTS.CATEGORY_URL);
     expect(req.request.method).toBe('GET');
+    expect(req.cancelled).toBeFalsy();
     req.flush(mockResponse);
   });
 
@@ -60,7 +60,7 @@ describe('CategoryService', () => {
       },
     });
 
-    const req = httpMock.expectOne(API_ENDPOINTS.CATEGORY_URL);
+    const req = controller.expectOne(API_ENDPOINTS.CATEGORY_URL);
     expect(req.request.method).toBe('GET');
     req.flush(emptyResponse);
   });
@@ -78,7 +78,7 @@ describe('CategoryService', () => {
       },
     });
 
-    const req = httpMock.expectOne(API_ENDPOINTS.CATEGORY_URL);
+    const req = controller.expectOne(API_ENDPOINTS.CATEGORY_URL);
     expect(req.request.method).toBe('GET');
     req.flush(null, {
       status: 500,
