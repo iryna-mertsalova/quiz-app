@@ -45,6 +45,7 @@ describe('CategoryService', () => {
     });
 
     const req = controller.expectOne(API_ENDPOINTS.CATEGORY_URL);
+    
     expect(req.request.method).toBe('GET');
     expect(req.cancelled).toBeFalsy();
     req.flush(mockResponse);
@@ -61,6 +62,7 @@ describe('CategoryService', () => {
     });
 
     const req = controller.expectOne(API_ENDPOINTS.CATEGORY_URL);
+    
     expect(req.request.method).toBe('GET');
     req.flush(emptyResponse);
   });
@@ -79,7 +81,9 @@ describe('CategoryService', () => {
     });
 
     const req = controller.expectOne(API_ENDPOINTS.CATEGORY_URL);
+    
     expect(req.request.method).toBe('GET');
+    
     req.flush(null, {
       status: 500,
       statusText: 'Internal Server Error',
