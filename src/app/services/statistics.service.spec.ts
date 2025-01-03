@@ -141,7 +141,7 @@ describe('StatisticService', () => {
       expect(result).toEqual(mockQuizResult);
     });
 
-    it('should return 0 if quiz result does not exist in localStorage', () => {
+    it('should return null if quiz result does not exist in localStorage', () => {
       storageService.getFromStorage.mockReturnValueOnce(null);
       const result = service.getQuizResult();
       expect(result).toBeNull();
@@ -161,7 +161,7 @@ describe('StatisticService', () => {
       expect(result).toEqual(CHART_DATA);
     });
 
-    it('should return 0 if chart does not exist in localStorage', () => {
+    it('should return null if chart does not exist in localStorage', () => {
       storageService.getFromStorage.mockReturnValueOnce(null);
       const result = service.getStatisticData();
       expect(result).toBeNull();
