@@ -8,6 +8,7 @@
     "build:prod": "ng build --configuration=production --base-href=/quiz-app/",
     "watch": "ng build --watch --configuration development",
     "test": "jest --verbose",
+    "test:coverage": "jest --coverage",
     "prepare": "husky",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint .",

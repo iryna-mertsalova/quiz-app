@@ -6,16 +6,16 @@ import {
 import { CategoryService } from './category.service';
 import { API_ENDPOINTS, QUESTIONS_SIZE } from '../utils/constants';
 
+export const mockCategories = {
+  trivia_categories: Array.from({ length: QUESTIONS_SIZE }, (_, i) => ({
+    id: i + 1,
+    name: `Category ${i + 1}`,
+  })),
+};
+
 describe('CategoryService', () => {
   let service: CategoryService;
   let controller: HttpTestingController;
-
-  const mockResponse = {
-    trivia_categories: Array.from({ length: QUESTIONS_SIZE }, (_, i) => ({
-      id: i + 1,
-      name: `Category ${i + 1}`,
-    })),
-  };
 
   const emptyResponse = { trivia_categories: [] };
 
@@ -48,7 +48,7 @@ describe('CategoryService', () => {
     
     expect(req.request.method).toBe('GET');
     expect(req.cancelled).toBeFalsy();
-    req.flush(mockResponse);
+    req.flush(mockCategories);
   });
 
   it('should call API and return an empty category list', () => {
