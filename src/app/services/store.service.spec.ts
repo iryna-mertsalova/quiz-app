@@ -5,7 +5,6 @@ import * as QuestionActions from '../../store/question/question.actions';
 import { AppState } from '../../store/app.store';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { CategoryModel } from './model/category.model';
 import { questions$ } from './statistics.service.spec';
 import { mockCategories } from './category.service.spec';
 
@@ -24,8 +23,6 @@ describe('StoreService', () => {
   let store: jest.Mocked<Store<AppState>>;
 
   const categoryId: number = 11;
-  const loadingTrue: boolean = true;
-  const loadingFalse: boolean = false;
 
   beforeEach(() => {
     const mockStore = {
@@ -70,19 +67,19 @@ describe('StoreService', () => {
     });
 
     it('should select loadingCategories from the store', (done) => {
-      store.select.mockReturnValue(of(loadingTrue));
+      store.select.mockReturnValue(of(true));
       service.getLoadingCategories().subscribe((isLoading) => {
-        expect(isLoading).toBe(loadingTrue);
+        expect(isLoading).toBe(true);
         done();
       });
       expect(store.select).toHaveBeenCalled();
     });
 
     it('should select loadingQuestions from the store', (done) => {
-      store.select.mockReturnValue(of(loadingFalse));
+      store.select.mockReturnValue(of(false));
     
       service.getLoadingQuestions().subscribe((isLoading) => {
-        expect(isLoading).toBe(loadingFalse); 
+        expect(isLoading).toBe(false); 
         done();
       });
     

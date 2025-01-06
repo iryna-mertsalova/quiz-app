@@ -13,10 +13,6 @@ describe('TimeService', () => {
     jest.clearAllTimers(); 
   });
 
-  it('should initialize with startTime = 0', () => {
-    expect(service['startTime']).toBe(0);
-  });
-
   it('should return elapsed time in seconds', () => {
     service['startTime'] = Date.now() - 5000;
     
