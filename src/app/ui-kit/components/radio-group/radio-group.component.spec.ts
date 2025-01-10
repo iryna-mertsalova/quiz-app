@@ -26,6 +26,12 @@ describe('RadioGroupComponent', () => {
     fixture = TestBed.createComponent(RadioGroupComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
+
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers(); 
   });
 
   it('should create a component', () => {
@@ -62,6 +68,9 @@ describe('RadioGroupComponent', () => {
   });
 
   it('should show notification if user do not choose any option', (done) => {
+    jest.useFakeTimers();
+    jest.spyOn(global, 'setTimeout'); 
+
     component.options = testOptions;
     fixture.detectChanges();
 
@@ -70,10 +79,13 @@ describe('RadioGroupComponent', () => {
     expect(component.isSelectedAnswer()).toBe(false); 
     expect(component.isNotification$.value).toBe(true); 
 
-    setTimeout(() => {
-      expect(component.isNotification$.value).toBe(false);
-      done();
-    }, 1500);
+    jest.advanceTimersByTime(1500);
+
+    expect(component.isNotification$.value).toBe(false);
+    done();
+    expect(setTimeout).toHaveBeenCalled();
+
+    jest.useRealTimers();
   });
 
   it('should not show notification if form is valid', () => {
