@@ -1,7 +1,6 @@
-import { Component, DebugElement } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RadioGroupComponent } from './radio-group.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { RadioButtonComponent } from './radio-button/radio-button.component';
 import { NotificationComponent } from '../notification/notification.component';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
