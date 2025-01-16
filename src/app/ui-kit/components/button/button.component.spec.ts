@@ -3,6 +3,8 @@ import { ButtonComponent } from './button.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TypographyComponent } from '../typography/typography.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ButtonComponent', () => {
   let fixture: ComponentFixture<ButtonComponent>;
@@ -16,6 +18,7 @@ describe('ButtonComponent', () => {
   beforeEach(async() => {
     await TestBed.configureTestingModule({
       declarations: [ ButtonComponent, TypographyComponent ],
+      imports: [ AngularSvgIconModule.forRoot(), HttpClientTestingModule ],
     }).compileComponents();
   
     fixture = TestBed.createComponent(ButtonComponent);
