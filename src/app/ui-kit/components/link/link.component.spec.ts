@@ -35,7 +35,7 @@ describe('LinkComponent', () => {
   it('should create the verified content inside component', () => {
     fixture.detectChanges();
 
-    const anchorElement = debugElement.query(By.css('a')).nativeElement;
+    const anchorElement = debugElement.query(By.directive(LinkComponent)).nativeElement;
 
     expect(anchorElement.textContent.trim()).toBe(hostComponent.testContent);
   });
