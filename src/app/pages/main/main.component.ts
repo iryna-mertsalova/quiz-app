@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
 
 @Component({
@@ -7,11 +7,4 @@ import { UIKitModule } from '../../ui-kit/ui-kit.module';
   templateUrl: './main.component.html',
   imports: [UIKitModule],
 })
-export class MainComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class MainComponent { }
