@@ -21,7 +21,7 @@ import { decodeQuestion } from '../../utils/decode-html';
 import { TimeService } from '../../services/time.service';
 import { StatisticService } from '../../services/statistics.service';
 import { QuizResultModel } from '../../services/model/quiz-result.model';
-import { getStatisticText } from '../../utils/statistic-enums';
+import { getStatisticText } from '../../utils/statistic-utils';
 
 @Component({
   standalone: true,
