@@ -21,6 +21,7 @@ import { decodeQuestion } from '../../utils/decode-html';
 import { TimeService } from '../../services/time.service';
 import { StatisticService } from '../../services/statistics.service';
 import { QuizResultModel } from '../../services/model/quiz-result.model';
+import { getStatisticText } from '../../utils/statistic-enums';
 
 @Component({
   standalone: true,
@@ -132,11 +133,12 @@ export class QuestionComponent implements OnInit {
   handleModalResponse(confirm: boolean): void {
     if (confirm === true && this.nextRoute === ModalRoutes.Finish) {
       const time: number = this.timeService.finishTest();
+      const score: number = this.statisticService.initScore(this.questions$, this.answers$.getValue());
       const result: QuizResultModel = {
         seconds: time,
         formattedTime: this.timeService.formatTime(time),
-        score: this.statisticService.initScore(this.questions$, this.answers$.getValue()),
-        resultText: 'Good try! Why not have another go? You might get a bigger score!',
+        score: score,
+        resultText: getStatisticText(score),
       };
       this.statisticService.initResult(result);
     }
