@@ -2,8 +2,8 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { UIKitModule } from '../../ui-kit/ui-kit.module';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { QuestionModel } from '../../services/model/question.model';
-import { StoreService } from '../../services/store.service';
+import { QuestionModel } from '../../services/question/question.model';
+import { StoreService } from '../../store/service/store.service';
 import {
   BehaviorSubject,
   combineLatest,
@@ -14,14 +14,14 @@ import {
   take,
 } from 'rxjs';
 import { QUESTIONS_SIZE } from '../../utils/constants';
-import { ModalWindowModel } from '../../services/model/modal.model';
-import { ModalWindowService } from '../../services/modal.service';
-import { ModalRoutes } from '../../utils/modal-routes.enum';
+import { ModalWindowModel } from '../../services/modal-window/modal.model';
+import { ModalWindowService } from '../../services/modal-window/modal.service';
+import { ModalRoutes } from '../../ui-kit/components/modal-window/modal-window.routes.enum';
 import { decodeQuestion } from '../../utils/decode-html';
-import { TimeService } from '../../services/time.service';
-import { StatisticService } from '../../services/statistics.service';
-import { QuizResultModel } from '../../services/model/quiz-result.model';
-import { getStatisticText } from '../../utils/statistic-utils';
+import { TimeService } from '../../services/statistics/time/time.service';
+import { StatisticService } from '../../services/statistics/statistics.service';
+import { QuizResultModel } from '../../services/statistics/quiz-result.model';
+import { getStatisticText } from './statistics-texts.constants';
 
 @Component({
   standalone: true,
