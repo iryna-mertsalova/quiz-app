@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import { QuestionModel } from '../question/question.model';
 import { ChartModel } from './chart.modal';
 
-jest.mock('./storage.service.ts');
+jest.mock('../storage/storage.service.ts');
 
 export const questions$: Observable<QuestionModel[]> = of([
   {

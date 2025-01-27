@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CardQuizComponent } from './card-quiz.component';
 import { DebugElement } from '@angular/core';
-import { TypographyComponent } from '../typography/typography.component';
-import { LinkComponent } from '../link/link.component';
+import { TypographyComponent } from '../../ui-kit/components/typography/typography.component';
+import { LinkComponent } from '../../ui-kit/components/link/link.component';
 import { By } from '@angular/platform-browser';
-import { CategoryModel } from '../../../services/category/category.model';
-import { cardItemStyles } from '../../constants/card-item';
+import { CategoryModel } from '../../services/category/category.model';
+import { cardItemStyles } from './card-quiz.constants';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { expect } from '@jest/globals';

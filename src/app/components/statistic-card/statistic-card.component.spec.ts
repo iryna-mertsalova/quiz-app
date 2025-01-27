@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StatisticCardComponent } from './statistic-card.component';
 import { DebugElement } from '@angular/core';
-import { TypographyComponent } from '../typography/typography.component';
+import { TypographyComponent } from '../../ui-kit/components/typography/typography.component';
 import { By } from '@angular/platform-browser';
 
 describe('StatisticCardComponent', () => {

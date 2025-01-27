@@ -5,14 +5,14 @@ import { UIKitModule } from '../../ui-kit/ui-kit.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { provideRouter } from '@angular/router';
-import { StoreService } from '../../../store/service/store.service';
+import { StoreService } from '../../store/service/store.service';
 import { of } from 'rxjs';
 import { mockCategories } from '../../services/category/category.service.spec';
 import { By } from '@angular/platform-browser';
 import { ButtonComponent } from '../../ui-kit/components/button/button.component';
 import { TypographyComponent } from '../../ui-kit/components/typography/typography.component';
 import { LinkComponent } from '../../ui-kit/components/link/link.component';
-import { CardQuizComponent } from '../../ui-kit/components/card-quiz/card-quiz.component';
+import { CardQuizComponent } from '../../components/card-quiz/card-quiz.component';
 import { CardItemStyle } from '../../components/card-quiz/card-quiz.constants';
 import { SpinnerComponent } from '../../ui-kit/components/spinner/spinner.component';
 

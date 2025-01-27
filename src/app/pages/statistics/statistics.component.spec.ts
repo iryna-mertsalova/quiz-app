@@ -12,7 +12,7 @@ import { isComponentExist } from '../quizzes-catalog/quizzes-catalog.component.s
 import { TypographyComponent } from '../../ui-kit/components/typography/typography.component';
 import { ButtonComponent } from '../../ui-kit/components/button/button.component';
 import { LinkComponent } from '../../ui-kit/components/link/link.component';
-import { StatisticCardComponent } from '../../ui-kit/components/statistic-card/statistic-card.component';
+import { StatisticCardComponent } from '../../components/statistic-card/statistic-card.component';
 import { ChartRatingComponent } from '../../ui-kit/components/chart-rating/chart-rating.component';
 
 export const testQuizResult: QuizResultModel = {

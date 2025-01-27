@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { ModalWindowService, ModalWindowState } from './modal.service';
 import { ModalRoutes } from '../../ui-kit/components/modal-window/modal-window.routes.enum';
-import { DEFAULT_MODAL_DATA, MODAL_DATA } from '../../utils/modal-data.constants';
+import { DEFAULT_MODAL_DATA, MODAL_DATA } from '../../ui-kit/components/modal-window/modal-window.constants';
 
 describe('ModalWindowService', () => {
   let service: ModalWindowService;

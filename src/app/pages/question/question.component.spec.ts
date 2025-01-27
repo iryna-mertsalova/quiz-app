@@ -12,14 +12,14 @@ import { ButtonComponent } from '../../ui-kit/components/button/button.component
 import { LinkComponent } from '../../ui-kit/components/link/link.component';
 import { SpinnerComponent } from '../../ui-kit/components/spinner/spinner.component';
 import { ModalWindowComponent } from '../../ui-kit/components/modal-window/modal-window.component';
-import { StoreService } from '../../../store/service/store.service';
+import { StoreService } from '../../store/service/store.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { questions$ } from '../../services/statistics/statistics.service.spec';
 import { ModalWindowService, ModalWindowState } from '../../services/modal-window/modal.service';
 import { QUESTIONS_SIZE } from '../../utils/constants';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalRoutes } from '../../ui-kit/components/modal-window/modal-window.routes.enum';
-import { DEFAULT_MODAL_DATA } from '../../utils/modal-data.constants';
+import { DEFAULT_MODAL_DATA } from '../../ui-kit/components/modal-window/modal-window.constants';
 import { StatisticService } from '../../services/statistics/statistics.service';
 import { canDeactivateGuard } from '../../guards/can-deactivate.guard';
 import { QUIZ_DATA } from '../../test-data/quiz';

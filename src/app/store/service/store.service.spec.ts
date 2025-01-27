@@ -5,8 +5,8 @@ import * as QuestionActions from '../question/question.actions';
 import { AppState } from '../app.store';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { questions$ } from '../../app/services/statistics/statistics.service.spec';
-import { mockCategories } from '../../app/services/category/category.service.spec';
+import { questions$ } from '../../services/statistics/statistics.service.spec';
+import { mockCategories } from '../../services/category/category.service.spec';
 
 jest.mock('@ngrx/store');
 
