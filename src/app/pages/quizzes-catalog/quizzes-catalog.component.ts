@@ -9,11 +9,13 @@ import {
 import { CategoryModel } from '../../services/category/category.model';
 import { Observable } from 'rxjs';
 import { StoreService } from '../../../app/store/service/store.service';
+import { CategoryService } from '../../services/category/category.service';
 
 @Component({
   standalone: true,
   selector: 'app-quizzes-catalog',
   templateUrl: './quizzes-catalog.component.html',
+  providers: [CategoryService],
   imports: [ UIKitModule, CommonModule ],
 })
 export class QuizzesCatalogComponent implements OnInit {

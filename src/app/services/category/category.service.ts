@@ -4,9 +4,7 @@ import { Injectable } from '@angular/core';
 import { CategoryModel } from './category.model';
 import { API_ENDPOINTS } from '../../utils/constants';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
