@@ -4,7 +4,7 @@ import { DebugElement } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { TypographyComponent } from '../typography/typography.component';
 import { By } from '@angular/platform-browser';
-import { ModalWindowModel } from '../../../services/model/modal.model';
+import { ModalWindowModel } from '../../../services/modal-window/modal.model';
 import { DEFAULT_MODAL_DATA } from '../../../utils/modal-data.constants';
 
 describe('ModalWindowComponent', () => {

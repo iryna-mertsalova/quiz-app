@@ -5,10 +5,10 @@ import {
   CardColors,
   CardItemStyle,
   cardItemStyles,
-} from '../../ui-kit/constants/card-item';
-import { CategoryModel } from '../../services/model/category.model';
+} from '../../components/card-quiz/card-quiz.constants';
+import { CategoryModel } from '../../services/category/category.model';
 import { Observable } from 'rxjs';
-import { StoreService } from '../../services/store.service';
+import { StoreService } from '../../../app/store/service/store.service';
 
 @Component({
   standalone: true,

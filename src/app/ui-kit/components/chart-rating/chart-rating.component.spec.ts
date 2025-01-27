@@ -3,8 +3,8 @@ import { ChartRatingComponent } from './chart-rating.component';
 import { DebugElement } from '@angular/core';
 import { CHART_DATA } from '../../../test-data/chart.data';
 import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
-import { ChartOptions } from '../../constants/chart.options';
-import { ChartModel } from '../../../services/model/chart.modal';
+import { ChartOptions } from './chart-rating.contants';
+import { ChartModel } from '../../../services/statistics/chart.modal';
 
 describe('ChartRatingComponent', () => {
   let fixture: ComponentFixture<ChartRatingComponent>;
