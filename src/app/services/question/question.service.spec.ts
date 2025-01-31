@@ -8,7 +8,7 @@ describe('QuestionService', () => {
   let service: QuestionService;
   let controller: HttpTestingController;
 
-  const categoryId = 11;
+  const categoryId: number = 11;
   const response = {
     results: new Array(QUESTIONS_SIZE).fill({}) as QuestionModel[],
   };

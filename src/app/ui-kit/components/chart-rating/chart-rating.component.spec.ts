@@ -1,10 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChartRatingComponent } from './chart-rating.component';
 import { DebugElement } from '@angular/core';
-import { CHART_DATA } from '../../../test-data/chart.data';
-import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
-import { ChartOptions } from './chart-rating.contants';
-import { ChartModel } from '../../../services/statistics/chart.modal';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 describe('ChartRatingComponent', () => {
   let fixture: ComponentFixture<ChartRatingComponent>;

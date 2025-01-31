@@ -1,4 +1,5 @@
 /* eslint-disable dot-notation */
+import { TIME_COUNTER } from '../../../utils/constants';
 import { TimeService } from './time.service';
 
 describe('TimeService', () => {
@@ -14,7 +15,7 @@ describe('TimeService', () => {
   });
 
   it('should return elapsed time in seconds', () => {
-    service['startTime'] = Date.now() - 5000;
+    service['startTime'] = Date.now() - TIME_COUNTER;
     
     expect(service.updateElapsedTime).toBe(5);
   });
@@ -29,7 +30,7 @@ describe('TimeService', () => {
     jest.spyOn(service, 'updateElapsedTime', 'get'); 
     
     service.startTest();
-    jest.advanceTimersByTime(3000);
+    jest.advanceTimersByTime(TIME_COUNTER);
     
     expect(service.updateElapsedTime).toBeDefined();
     expect(service.updateElapsedTime).toBeGreaterThan(0);

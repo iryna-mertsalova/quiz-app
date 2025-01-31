@@ -12,8 +12,6 @@ describe('ModalWindowComponent', () => {
   let fixture: ComponentFixture<ModalWindowComponent>;
   let debugElement: DebugElement;
 
-  const mockData: ModalWindowModel = DEFAULT_MODAL_DATA;
-
   beforeEach(async() => {
     await TestBed.configureTestingModule({
       declarations: [ ModalWindowComponent, ButtonComponent, TypographyComponent ],

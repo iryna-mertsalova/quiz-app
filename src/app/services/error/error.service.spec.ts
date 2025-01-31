@@ -1,4 +1,5 @@
 /* eslint-disable dot-notation */
+import { TIME_COUNTER } from '../../utils/constants';
 import { ErrorHandleService } from './error.service';
 
 describe('ErrorHandleService', () => {
@@ -86,7 +87,7 @@ describe('ErrorHandleService', () => {
 
     expect(appendChildSpy).toHaveBeenCalledWith(alertElement);
 
-    jest.advanceTimersByTime(5000);
+    jest.advanceTimersByTime(TIME_COUNTER);
     
     expect(alertElement.remove).toHaveBeenCalled();
     jest.useRealTimers(); 

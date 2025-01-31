@@ -6,22 +6,19 @@ export enum StatisticText {
   Poor = 'It\'s a start! Review the material and try again. 🌱',
 }
 
+const SCORE_TEXT_MAP: Record<number, StatisticText> = {
+  10: StatisticText.Excellent,
+  8: StatisticText.VeryGood,
+  6: StatisticText.Good,
+  4: StatisticText.Average,
+  0: StatisticText.Poor, 
+};
+
 export function getStatisticText(score: number): StatisticText {
-  if (score === 10) {
-    return StatisticText.Excellent;
-  } 
+  const matchingScore = Object.keys(SCORE_TEXT_MAP)
+  .map(Number)
+  .sort((scoreA, scoreB) => scoreB - scoreA) 
+  .find(threshold => score >= threshold);
 
-  if (score >= 8) {
-    return StatisticText.VeryGood;
-  } 
-
-  if (score >= 6) {
-    return StatisticText.Good;
-  }
-
-  if (score >= 4) {
-    return StatisticText.Average;
-  }
-   
-  return StatisticText.Poor;
+  return SCORE_TEXT_MAP[matchingScore ?? 0]; 
 }

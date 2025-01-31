@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { QuestionModel } from '../../services/question/question.model';
-import { QUESTIONS_SIZE } from '../../utils/constants';
+import { OPTIONS_COUNT, QUESTIONS_SIZE, TEXT_PARTS_COUNT } from '../../utils/constants';
 import { RadioGroupComponent } from '../../ui-kit/components/radio-group/radio-group.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { RadioGroupComponent } from '../../ui-kit/components/radio-group/radio-g
 })
 export class QuestionItemComponent {
   @Input() item: QuestionModel = { question: '', type: false, difficulty: '', category: '', correct_answer: '', incorrect_answers: [] };
-  @Input() options: string[] = new Array<string>(4);
+  @Input() options: string[] = new Array<string>(OPTIONS_COUNT);
   @Input() id: number = 0;
   @Input() selectedAnswer: string = '';
   @Output() next = new EventEmitter<void>(); 
@@ -55,7 +55,7 @@ export class QuestionItemComponent {
 
   getFormattedText(): { start: string, middle: string, end: string } {
     const question = this.item.question;
-    const split = Math.floor(question.length / 3);
+    const split = Math.floor(question.length / TEXT_PARTS_COUNT);
   
     const startEnd = question.indexOf(' ', split);
     const middleStart = startEnd + 1;

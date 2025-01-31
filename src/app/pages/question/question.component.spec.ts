@@ -36,6 +36,9 @@ describe('QuestionComponent', () => {
 
   let router: Router;
 
+  let nextIndex: number = 2;
+  let prevIndex: number = 1;
+
   beforeEach(async() => {
     storeService = {
       getQuestions: jest.fn(() => questions$),
@@ -97,14 +100,14 @@ describe('QuestionComponent', () => {
   });
 
   it('should decrement and increment current index on prev or next questions', () => {
-    component.currentIndex$.next(2);
+    component.currentIndex$.next(nextIndex);
     component.prevQuestion();
 
-    expect(component.currentIndex$.value).toBe(1);
+    expect(component.currentIndex$.value).toBe(prevIndex);
 
     component.nextQuestion();
 
-    expect(component.currentIndex$.value).toBe(2);
+    expect(component.currentIndex$.value).toBe(nextIndex);
   });
 
   it('should go to statistic page with /finish path on last question', () => {
