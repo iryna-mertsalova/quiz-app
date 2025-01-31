@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class TimeService {
   private startTime: number = 0;
-  private timer!: any;
+  private timer!: ReturnType<typeof setTimeout>;
   
   get updateElapsedTime(): number {
     return Math.floor((Date.now() - this.startTime) / 1000);

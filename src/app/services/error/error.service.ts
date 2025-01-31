@@ -1,4 +1,5 @@
 import { ErrorHandler, Injectable } from '@angular/core';
+import { TIME_COUNTER } from '../../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,6 @@ export class ErrorHandleService implements ErrorHandler {
 
     setTimeout(() => {
       alert.remove();
-    }, 5000); 
+    }, TIME_COUNTER); 
   }
 }
