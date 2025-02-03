@@ -12,14 +12,14 @@
     </button>
 
     <div class="hidden md:flex w-full items-center justify-between">
-      <div class="flex items-center justify-around w-1/4 pl-7">
+      <div class="flex items-center justify-around pl-7">
         <ng-container *ngFor="let item of menuItems">
-          <app-ui-link class="relative cursor-pointer hover:text-shade nav-item-animation" [link]="item.link">
+          <app-ui-link class="relative cursor-pointer hover:text-shade nav-item-animation mx-5" [link]="item.link">
             <app-ui-typography type="P1">{{ item.label }}</app-ui-typography>
           </app-ui-link>
         </ng-container>
       </div>
-      <div class="flex w-1/4 justify-end">
+      <div class="flex justify-end">
         <app-ui-button textName="P2" type="accent" size="sm">Sign in</app-ui-button>
         <app-ui-button textName="P2" type="ghost" size="sm">Sign up</app-ui-button>
       </div>
@@ -28,12 +28,16 @@
 
 
   <div *ngIf="isMenuOpen"
-    class="absolute rounded-b-lg border-b-4 border-opacity-75 border-b-muted w-full bg-primary flex flex-col items-end md:hidden p-4 *:my-3 z-[1003]">
-    <ng-container *ngFor="let item of menuItems">
-      <app-ui-link class="relative cursor-pointer hover:text-shade nav-item-animation" [link]="item.link">
-        <app-ui-typography type="P1">{{ item.label }}</app-ui-typography>
-      </app-ui-link>
-    </ng-container>
+    class="absolute rounded-b-lg border-b-4 border-opacity-75 border-b-muted w-full bg-primary flex flex-col items-end md:hidden p-4 z-[1000] nav-item-animation">
+
+    <div class="min-w-32 pl-3 *:my-3 flex flex-col items-start" >
+      <ng-container *ngFor="let item of menuItems">
+        <app-ui-link class="relative cursor-pointer hover:text-shade nav-item-animation" [link]="item.link">
+          <app-ui-typography type="P1">{{ item.label }}</app-ui-typography>
+        </app-ui-link>
+      </ng-container>
+    </div>
+
     <div class="flex items-center">
       <app-ui-button textName="P2" type="accent" size="sm">Sign in</app-ui-button>
       <app-ui-button textName="P2" type="ghost" size="sm">Sign up</app-ui-button>
