@@ -64,7 +64,12 @@ export function createChartOptions(data: QuestionTypeModel[]): Partial<ChartOpti
       show: false,
     },
     tooltip: {
-      enabled: false, 
+      enabled: true,
+      custom: function({ series, seriesIndex }) {
+        return (
+          '<div class="tooltipStyles">' + `${data[seriesIndex].name}: <p>${series[seriesIndex]}</p>` + '</div>'
+        );
+      },
     },
     states: {
       hover: {
